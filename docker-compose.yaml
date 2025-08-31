@@ -1,0 +1,30 @@
+services:
+  db:
+    image: supabase/postgres:17.4.1.077
+    restart: always
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: supabase_admin
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    command: postgres -c config_file=/etc/postgresql/postgresql.conf
+
+  frontend:
+    build: ./frontend
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URI: "postgresql://supabase_admin:postgres@db:5432/frontend"
+      NODE_ENV: production
+      NEXT_PUBLIC_N8N_CHAT_URL: ${NEXT_PUBLIC_N8N_CHAT_URL}
+      PAYLOAD_SECRET: ${PAYLOAD_SECRET}
+    depends_on:
+      - db
+    command: npm run build && npm run start
+
+volumes:
+  db_data:
