@@ -25,12 +25,6 @@ export const Sentences: CollectionConfig = {
       hasMany: false,
     },
     {
-      name: 'conjugation',
-      type: 'text',
-      label: 'Conjugation',
-      required: true,
-    },
-    {
       name: 'image',
       type: 'upload',
       relationTo: 'images',

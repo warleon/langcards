@@ -1,6 +1,5 @@
 'use client'
 
-import { AspectRatio } from '@radix-ui/react-aspect-ratio'
 import { useRef } from 'react'
 import { Card, CardHeader, CardTitle, CardContent } from './ui/card'
 import { Audio, Image, Word } from '@/payload-types'

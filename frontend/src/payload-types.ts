@@ -203,7 +203,6 @@ export interface Sentence {
   id: number;
   sentence: string;
   word: number | Word;
-  conjugation: string;
   image: number | Image;
   audioPronunciation: number | Audio;
   audioEffect?: (number | null) | Audio;
@@ -357,7 +356,6 @@ export interface WordsSelect<T extends boolean = true> {
 export interface SentencesSelect<T extends boolean = true> {
   sentence?: T;
   word?: T;
-  conjugation?: T;
   image?: T;
   audioPronunciation?: T;
   audioEffect?: T;

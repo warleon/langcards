@@ -1,17 +1,11 @@
 'use client'
 
-import { AspectRatio } from '@radix-ui/react-aspect-ratio'
 import { useRef } from 'react'
 import { Card, CardHeader, CardTitle, CardContent } from './ui/card'
 import { Audio, Image, Sentence } from '@/payload-types'
+import { SpecialText } from './ui/SpecialText'
 
-export function SentenceCard({
-  sentence,
-  audioPronunciation,
-  conjugation,
-  image,
-  audioEffect,
-}: Sentence) {
+export function SentenceCard({ sentence, audioPronunciation, image, audioEffect }: Sentence) {
   const audioPronRef = useRef<HTMLAudioElement>(null)
   const audioEffectRef = useRef<HTMLAudioElement>(null)
 
@@ -32,7 +26,9 @@ export function SentenceCard({
       onClick={handlePlay}
     >
       <CardHeader>
-        <CardTitle className="text-lg font-medium mx-auto">{sentence}</CardTitle>
+        <CardTitle className="text-lg font-medium mx-auto">
+          <SpecialText text={sentence}></SpecialText>
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <img src={(image as Image).url!} alt={sentence} className="rounded-lg object-cover" />
