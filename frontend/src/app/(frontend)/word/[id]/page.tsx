@@ -34,8 +34,11 @@ export default async function WordPage({ params }: { params: Promise<{ id: strin
   const word = queryResult.docs[0]
   return (
     <div>
-      {JSON.stringify(word)}
-      <WordCard {...word}></WordCard>
+      <div className="h-[80vh] flex flex-col">
+        <div className="grow"></div>
+        <WordCard {...word}></WordCard>
+        <div className="grow"></div>
+      </div>
       {word.sentences &&
         word.sentences.map((s) => (
           <div key={(s as Sentence).id}>

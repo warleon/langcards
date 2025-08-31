@@ -23,14 +23,15 @@ export function WordCard({ word, audioPronunciation, image, audioEffect }: Word)
   }
 
   return (
-    <Card className="cursor-pointer hover:shadow-xl transition" onClick={handlePlay}>
+    <Card
+      className="cursor-pointer hover:shadow-xl transition max-w-lg h-fit mx-auto"
+      onClick={handlePlay}
+    >
       <CardHeader>
-        <CardTitle className="text-2xl font-bold">{word}</CardTitle>
+        <CardTitle className="text-2xl font-bold mx-auto">{word}</CardTitle>
       </CardHeader>
       <CardContent>
-        <AspectRatio ratio={16 / 9}>
-          <img src={(image as Image).url!} alt={word} className="rounded-xl object-cover" />
-        </AspectRatio>
+        <img src={(image as Image).url!} alt={word} className="rounded-xl object-cover " />
         <audio ref={audioPronRef} src={(audioPronunciation as Audio).url!} preload="auto" />
         {audioEffect && (
           <audio ref={audioEffectRef} src={(audioEffect as Audio).url!} preload="auto" />
