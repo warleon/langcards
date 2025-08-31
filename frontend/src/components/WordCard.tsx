@@ -5,8 +5,6 @@ import { useRef } from 'react'
 import { Card, CardHeader, CardTitle, CardContent } from './ui/card'
 import { Audio, Image, Word } from '@/payload-types'
 
-// ----------- WordCard -------------
-
 export function WordCard({ word, audioPronunciation, image, audioEffect }: Word) {
   const audioPronRef = useRef<HTMLAudioElement>(null)
   const audioEffectRef = useRef<HTMLAudioElement>(null)

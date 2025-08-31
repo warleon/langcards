@@ -27,14 +27,15 @@ export function SentenceCard({
   }
 
   return (
-    <Card className="cursor-pointer hover:shadow-md transition" onClick={handlePlay}>
+    <Card
+      className="cursor-pointer hover:shadow-md transition max-w-4xl h-fit mx-auto"
+      onClick={handlePlay}
+    >
       <CardHeader>
-        <CardTitle className="text-lg font-medium">{sentence}</CardTitle>
+        <CardTitle className="text-lg font-medium mx-auto">{sentence}</CardTitle>
       </CardHeader>
       <CardContent>
-        <AspectRatio ratio={16 / 9}>
-          <img src={(image as Image).url!} alt={sentence} className="rounded-lg object-cover" />
-        </AspectRatio>
+        <img src={(image as Image).url!} alt={sentence} className="rounded-lg object-cover" />
         <audio ref={audioPronRef} src={(audioPronunciation as Audio).url!} preload="auto" />
         {audioEffect && (
           <audio ref={audioEffectRef} src={(audioEffect as Audio).url!} preload="auto" />

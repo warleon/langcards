@@ -39,12 +39,14 @@ export default async function WordPage({ params }: { params: Promise<{ id: strin
         <WordCard {...word}></WordCard>
         <div className="grow"></div>
       </div>
-      {word.sentences &&
-        word.sentences.map((s) => (
-          <div key={(s as Sentence).id}>
-            <SentenceCard {...(s as Sentence)}></SentenceCard>
-          </div>
-        ))}
+      <div className="flex flex-col gap-8 mb-16">
+        {word.sentences &&
+          word.sentences.map((s) => (
+            <div key={(s as Sentence).id}>
+              <SentenceCard {...(s as Sentence)}></SentenceCard>
+            </div>
+          ))}
+      </div>
     </div>
   )
 }
