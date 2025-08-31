@@ -1,6 +1,7 @@
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import { Word } from '@/payload-types'
+import { WordCard } from '@/components/WordCard'
 
 // Return a list of `params` to populate the [slug] dynamic segment
 export async function generateStaticParams() {
@@ -27,7 +28,13 @@ export default async function WordPage({ params }: { params: Promise<{ id: strin
         equals: (await params).id,
       },
     },
+    depth: 1,
   })
   const word = queryResult.docs[0]
-  return <div>{JSON.stringify(word)}</div>
+  return (
+    <div>
+      {JSON.stringify(word)}
+      <WordCard {...word}></WordCard>
+    </div>
+  )
 }

@@ -3,16 +3,11 @@
 import { AspectRatio } from '@radix-ui/react-aspect-ratio'
 import { useRef } from 'react'
 import { Card, CardHeader, CardTitle, CardContent } from './ui/card'
+import { Audio, Image, Word } from '@/payload-types'
 
 // ----------- WordCard -------------
-type WordCardProps = {
-  word: string
-  imageUrl: string
-  audioPronunciationUrl: string
-  audioEffectUrl?: string
-}
 
-export function WordCard({ word, imageUrl, audioPronunciationUrl, audioEffectUrl }: WordCardProps) {
+export function WordCard({ word, audioPronunciation, image, audioEffect }: Word) {
   const audioPronRef = useRef<HTMLAudioElement>(null)
   const audioEffectRef = useRef<HTMLAudioElement>(null)
 
@@ -20,7 +15,7 @@ export function WordCard({ word, imageUrl, audioPronunciationUrl, audioEffectUrl
     if (audioPronRef.current) {
       await audioPronRef.current.play()
       audioPronRef.current.onended = () => {
-        if (audioEffectUrl && audioEffectRef.current) {
+        if (audioEffect && audioEffectRef.current) {
           audioEffectRef.current.play()
         }
       }
@@ -34,10 +29,12 @@ export function WordCard({ word, imageUrl, audioPronunciationUrl, audioEffectUrl
       </CardHeader>
       <CardContent>
         <AspectRatio ratio={16 / 9}>
-          <img src={imageUrl} alt={word} className="rounded-xl object-cover" />
+          <img src={(image as Image).url!} alt={word} className="rounded-xl object-cover" />
         </AspectRatio>
-        <audio ref={audioPronRef} src={audioPronunciationUrl} preload="auto" />
-        {audioEffectUrl && <audio ref={audioEffectRef} src={audioEffectUrl} preload="auto" />}
+        <audio ref={audioPronRef} src={(audioPronunciation as Audio).url!} preload="auto" />
+        {audioEffect && (
+          <audio ref={audioEffectRef} src={(audioEffect as Audio).url!} preload="auto" />
+        )}
       </CardContent>
     </Card>
   )
