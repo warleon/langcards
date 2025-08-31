@@ -20,7 +20,6 @@ services:
     environment:
       DATABASE_URI: "postgresql://supabase_admin:postgres@db:5432/frontend"
       NODE_ENV: production
-      NEXT_PUBLIC_N8N_CHAT_URL: ${NEXT_PUBLIC_N8N_CHAT_URL}
       PAYLOAD_SECRET: ${PAYLOAD_SECRET}
     depends_on:
       - db
