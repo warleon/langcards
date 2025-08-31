@@ -37,5 +37,13 @@ export const Words: CollectionConfig = {
       label: 'Sound Effect Audio',
       required: false,
     },
+    {
+      name: 'sentences',
+      type: 'relationship',
+      relationTo: 'sentences', // vincula a la colección Word
+      label: 'Example sentences',
+      required: true,
+      hasMany: true,
+    },
   ],
 }

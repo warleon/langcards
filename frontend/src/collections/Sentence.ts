@@ -22,6 +22,7 @@ export const Sentences: CollectionConfig = {
       relationTo: 'words', // vincula a la colección Word
       label: 'Main Word',
       required: true,
+      hasMany: false,
     },
     {
       name: 'conjugation',
