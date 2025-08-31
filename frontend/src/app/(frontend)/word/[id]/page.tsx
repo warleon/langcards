@@ -9,12 +9,25 @@ export async function generateStaticParams() {
   const words = await payload.find({
     collection: 'words',
     pagination: false,
-    depth: 1,
   })
 
-  return words.docs
+  return words.docs.map((w) => ({
+    id: w.id.toString(),
+  }))
 }
 
-export default async function WordPage({ params }: { params: Promise<Word> }) {
-  return <div>{JSON.stringify(await params)}</div>
+export default async function WordPage({ params }: { params: Promise<{ id: string }> }) {
+  const payload = await getPayload({ config })
+
+  const queryResult = await payload.find({
+    collection: 'words',
+    pagination: false,
+    where: {
+      id: {
+        equals: (await params).id,
+      },
+    },
+  })
+  const word = queryResult.docs[0]
+  return <div>{JSON.stringify(word)}</div>
 }

@@ -42,8 +42,9 @@ export const Words: CollectionConfig = {
       type: 'relationship',
       relationTo: 'sentences', // vincula a la colección Word
       label: 'Example sentences',
-      required: true,
+      required: false,
       hasMany: true,
+      minRows: 0,
     },
   ],
 }

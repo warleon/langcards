@@ -36,7 +36,7 @@ export default async function WordPage() {
       <ul>
         {words.docs.map((w) => (
           <li key={w.id}>
-            <a href={`/word/${w.id}`}></a>
+            <a href={`/word/${w.id}`}>{w.word}</a>
           </li>
         ))}
       </ul>

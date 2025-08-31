@@ -191,7 +191,7 @@ export interface Word {
   image: number | Image;
   audioPronunciation: number | Audio;
   audioEffect?: (number | null) | Audio;
-  sentences: (number | Sentence)[];
+  sentences?: (number | Sentence)[] | null;
   updatedAt: string;
   createdAt: string;
 }
