@@ -4,6 +4,7 @@ import { useRef } from 'react'
 import { Card, CardHeader, CardTitle, CardContent } from './ui/card'
 import { Audio, Image, Sentence } from '@/payload-types'
 import { SpecialText } from './ui/SpecialText'
+import NextImage from 'next/image'
 
 export function SentenceCard({ sentence, audioPronunciation, image, audioEffect }: Sentence) {
   const audioPronRef = useRef<HTMLAudioElement>(null)
@@ -31,7 +32,13 @@ export function SentenceCard({ sentence, audioPronunciation, image, audioEffect 
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <img src={(image as Image).url!} alt={sentence} className="rounded-lg object-cover" />
+        <NextImage
+          width={1024}
+          height={1024}
+          src={(image as Image).url!}
+          alt={sentence}
+          className="rounded-lg object-cover"
+        />
         <audio ref={audioPronRef} src={(audioPronunciation as Audio).url!} preload="auto" />
         {audioEffect && (
           <audio ref={audioEffectRef} src={(audioEffect as Audio).url!} preload="auto" />

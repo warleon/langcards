@@ -3,6 +3,7 @@
 import { useRef } from 'react'
 import { Card, CardHeader, CardTitle, CardContent } from './ui/card'
 import { Audio, Image, Word } from '@/payload-types'
+import NextImage from 'next/image'
 
 export function WordCard({ word, audioPronunciation, image, audioEffect }: Word) {
   const audioPronRef = useRef<HTMLAudioElement>(null)
@@ -28,7 +29,13 @@ export function WordCard({ word, audioPronunciation, image, audioEffect }: Word)
         <CardTitle className="text-2xl font-bold mx-auto">{word}</CardTitle>
       </CardHeader>
       <CardContent>
-        <img src={(image as Image).url!} alt={word} className="rounded-xl object-cover " />
+        <NextImage
+          width={1024}
+          height={1024}
+          src={(image as Image).url!}
+          alt={word}
+          className="rounded-xl object-cover "
+        />
         <audio ref={audioPronRef} src={(audioPronunciation as Audio).url!} preload="auto" />
         {audioEffect && (
           <audio ref={audioEffectRef} src={(audioEffect as Audio).url!} preload="auto" />
