@@ -23,7 +23,7 @@ services:
       PAYLOAD_SECRET: ${PAYLOAD_SECRET}
     depends_on:
       - db
-    command: npm run build && npm run start
+    command: ["npm", "run", "deploy"]
 
 volumes:
   db_data:
