@@ -16,7 +16,7 @@
     "test": "pnpm run test:int && pnpm run test:e2e",
     "test:e2e": "cross-env NODE_OPTIONS=\"--no-deprecation --no-experimental-strip-types\" pnpm exec playwright test",
     "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts",
-    "deploy": "npm run build && npm run start"
+    "deploy": "npm run payload migrate && npm run build && npm run start"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "3.54.0",
