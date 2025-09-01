@@ -22,7 +22,7 @@ export async function generateStaticParams() {
 export default async function WordPage({ params }: { params: Promise<{ id: string }> }) {
   const payload = await getPayload({ config })
 
-  const queryResult = await payload.find({
+  const wordQuery = await payload.find({
     collection: 'words',
     pagination: false,
     where: {
@@ -39,13 +39,24 @@ export default async function WordPage({ params }: { params: Promise<{ id: strin
         exists: true,
       },
     },
-    depth: 2,
   })
-  const word = queryResult.docs[0]
+  const word = wordQuery.docs[0]
 
   if (!word) {
     redirect('/', RedirectType.replace)
   }
+
+  const sentencesQuery = await payload.find({
+    collection: 'sentences',
+    pagination: false,
+    where: {
+      word: {
+        equals: word.id,
+      },
+    },
+  })
+
+  const sentences = sentencesQuery.docs
 
   return (
     <div>
@@ -55,8 +66,8 @@ export default async function WordPage({ params }: { params: Promise<{ id: strin
         <div className="grow"></div>
       </div>
       <div className="flex flex-col gap-8 mb-16">
-        {word.sentences &&
-          word.sentences.map((s) => (
+        {sentences &&
+          sentences.map((s) => (
             <div key={(s as Sentence).id}>
               <SentenceCard {...(s as Sentence)}></SentenceCard>
             </div>

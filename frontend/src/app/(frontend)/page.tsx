@@ -1,13 +1,7 @@
-import { headers as getHeaders } from 'next/headers.js'
 import { getPayload } from 'payload'
 import React from 'react'
-import { fileURLToPath } from 'url'
 
 import config from '@/payload.config'
-import { SentenceCard } from '@/components/SentencesCard'
-import { WordCard } from '@/components/WordCard'
-import { Word } from '@/payload-types'
-import { GetStaticPaths, GetStaticProps } from 'next'
 
 //export default async function HomePage() {
 //const headers = await getHeaders()

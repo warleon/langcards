@@ -1,25 +1,23 @@
 'use client'
 
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { Card, CardHeader, CardTitle, CardContent } from './ui/card'
 import { Audio, Image, Sentence } from '@/payload-types'
 import { SpecialText } from './ui/SpecialText'
 import NextImage from 'next/image'
 
-export function SentenceCard({ sentence, audioPronunciation, image, audioEffect }: Sentence) {
+export function SentenceCard({ sentence, audioPronunciation, image }: Sentence) {
   const audioPronRef = useRef<HTMLAudioElement>(null)
-  const audioEffectRef = useRef<HTMLAudioElement>(null)
 
   const handlePlay = async () => {
     if (audioPronRef.current) {
       await audioPronRef.current.play()
-      audioPronRef.current.onended = () => {
-        if (audioEffect && audioEffectRef.current) {
-          audioEffectRef.current.play()
-        }
-      }
     }
   }
+
+  useEffect(() => {
+    handlePlay()
+  }, [])
 
   return (
     <Card
@@ -40,9 +38,6 @@ export function SentenceCard({ sentence, audioPronunciation, image, audioEffect 
           className="rounded-lg object-cover"
         />
         <audio ref={audioPronRef} src={(audioPronunciation as Audio).url!} preload="auto" />
-        {audioEffect && (
-          <audio ref={audioEffectRef} src={(audioEffect as Audio).url!} preload="auto" />
-        )}
       </CardContent>
     </Card>
   )

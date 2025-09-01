@@ -1,3 +1,5 @@
+import { Sentence } from '@/payload-types'
+import { revalidatePath } from 'next/cache'
 import { CollectionConfig } from 'payload'
 
 export const Sentences: CollectionConfig = {
@@ -38,12 +40,20 @@ export const Sentences: CollectionConfig = {
       label: 'Pronunciation Audio',
       required: true,
     },
-    {
-      name: 'audioEffect',
-      type: 'upload',
-      relationTo: 'audios',
-      label: 'Sound Effect Audio',
-      required: false,
-    },
   ],
+  hooks: {
+    // maybe should check if the type is number or if its Word
+    afterChange: [
+      ({ doc }) => {
+        revalidatePath(`/word/${(doc as Sentence).word}`)
+        return doc
+      },
+    ],
+    afterDelete: [
+      ({ doc }) => {
+        revalidatePath(`/word/${(doc as Sentence).word}`)
+        return doc
+      },
+    ],
+  },
 }

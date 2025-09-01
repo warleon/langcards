@@ -1,3 +1,5 @@
+import { Word } from '@/payload-types'
+import { revalidatePath } from 'next/cache'
 import { CollectionConfig } from 'payload'
 
 export const Words: CollectionConfig = {
@@ -37,21 +39,21 @@ export const Words: CollectionConfig = {
       label: 'Pronunciation Audio',
       required: false,
     },
-    {
-      name: 'audioEffect',
-      type: 'upload',
-      relationTo: 'audios',
-      label: 'Sound Effect Audio',
-      required: false,
-    },
-    {
-      name: 'sentences',
-      type: 'relationship',
-      relationTo: 'sentences', // vincula a la colección Word
-      label: 'Example sentences',
-      required: false,
-      hasMany: true,
-      minRows: 0,
-    },
   ],
+  hooks: {
+    afterChange: [
+      ({ doc }) => {
+        revalidatePath(`/word/${(doc as Word).id}`)
+        revalidatePath(`/`)
+        return doc
+      },
+    ],
+    afterDelete: [
+      ({ doc }) => {
+        revalidatePath(`/word/${(doc as Word).id}`)
+        revalidatePath(`/`)
+        return doc
+      },
+    ],
+  },
 }

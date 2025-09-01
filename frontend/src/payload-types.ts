@@ -191,8 +191,6 @@ export interface Word {
   approved: boolean;
   image?: (number | null) | Image;
   audioPronunciation?: (number | null) | Audio;
-  audioEffect?: (number | null) | Audio;
-  sentences?: (number | Sentence)[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -206,7 +204,6 @@ export interface Sentence {
   word: number | Word;
   image: number | Image;
   audioPronunciation: number | Audio;
-  audioEffect?: (number | null) | Audio;
   updatedAt: string;
   createdAt: string;
 }
@@ -346,8 +343,6 @@ export interface WordsSelect<T extends boolean = true> {
   approved?: T;
   image?: T;
   audioPronunciation?: T;
-  audioEffect?: T;
-  sentences?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -360,7 +355,6 @@ export interface SentencesSelect<T extends boolean = true> {
   word?: T;
   image?: T;
   audioPronunciation?: T;
-  audioEffect?: T;
   updatedAt?: T;
   createdAt?: T;
 }
