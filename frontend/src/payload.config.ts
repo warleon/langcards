@@ -9,7 +9,7 @@ import sharp from 'sharp'
 
 import { Users, Audios, Images, Words, Sentences } from './collections'
 import { n8n } from './globals'
-import { collectionsEndpoint, globalsEndpoint } from './endpoints'
+import { permissionsEndpoint } from './endpoints'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -23,7 +23,7 @@ export default buildConfig({
   },
   collections: [Users, Audios, Images, Words, Sentences],
   globals: [n8n],
-  endpoints: [collectionsEndpoint, globalsEndpoint],
+  endpoints: [permissionsEndpoint],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

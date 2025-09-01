@@ -1,18 +1,15 @@
 import type { Endpoint, PayloadRequest } from 'payload'
 
-export const collectionsEndpoint: Endpoint = {
-  path: '/collections',
+export const permissionsEndpoint: Endpoint = {
+  path: '/permissions',
   method: 'get',
   handler: async (req: PayloadRequest) => {
     const { payload } = req
     const { permissions } = await payload.auth({ req, headers: req.headers })
 
-    // Get all collections from config
     const collections = permissions.collections
-    if (!collections) {
-      return Response.json({})
-    }
+    const globals = permissions.globals
 
-    return Response.json(collections)
+    return Response.json({ collections, globals })
   },
 }
