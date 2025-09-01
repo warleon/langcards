@@ -15,10 +15,6 @@ export function SentenceCard({ sentence, audioPronunciation, image }: Sentence) 
     }
   }
 
-  useEffect(() => {
-    handlePlay()
-  }, [])
-
   return (
     <Card
       className="cursor-pointer hover:shadow-md transition max-w-4xl h-fit mx-auto"
