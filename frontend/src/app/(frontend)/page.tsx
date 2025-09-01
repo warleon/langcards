@@ -29,8 +29,19 @@ export default async function WordPage() {
       collection: 'words',
       pagination: false,
       depth: 0,
+      where: {
+        approved: {
+          equals: true,
+        },
+        image: {
+          exists: true,
+        },
+        audioPronunciation: {
+          exists: true,
+        },
+      },
     })
-  ).docs.filter((w) => w.approved && w.image && w.audioPronunciation)
+  ).docs
 
   return (
     <div className="space-y-8 p-6">
