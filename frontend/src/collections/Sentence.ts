@@ -1,6 +1,9 @@
 import { Sentence } from '@/payload-types'
 import { revalidatePath } from 'next/cache'
 import { CollectionConfig } from 'payload'
+import { getPayload } from 'payload'
+import config from '@payload-config'
+import axios from 'axios'
 
 export const Sentences: CollectionConfig = {
   slug: 'sentences',
@@ -17,6 +20,13 @@ export const Sentences: CollectionConfig = {
       type: 'text',
       label: 'Sentence',
       required: true,
+    },
+    {
+      name: 'approved',
+      type: 'checkbox',
+      label: 'Aproved',
+      required: true,
+      defaultValue: false,
     },
     {
       name: 'word',
@@ -44,8 +54,14 @@ export const Sentences: CollectionConfig = {
   hooks: {
     // maybe should check if the type is number or if its Word
     afterChange: [
-      ({ doc }) => {
-        revalidatePath(`/word/${(doc as Sentence).word}`)
+      async (hook) => {
+        const doc = hook.doc as Sentence
+        revalidatePath(`/word/${doc.word}`)
+        if (!doc.image || !doc.audioPronunciation) {
+          const payload = await getPayload({ config })
+          const n8n = await payload.findGlobal({ slug: 'n8n' })
+          if (n8n.webhook) axios.post(n8n.webhook, { collection: hook.collection.slug, doc })
+        }
         return doc
       },
     ],

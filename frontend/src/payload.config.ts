@@ -8,6 +8,7 @@ import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 
 import { Users, Audios, Images, Words, Sentences } from './collections'
+import { n8n } from './globals'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -20,6 +21,7 @@ export default buildConfig({
     },
   },
   collections: [Users, Audios, Images, Words, Sentences],
+  globals: [n8n],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

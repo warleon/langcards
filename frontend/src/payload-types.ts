@@ -90,8 +90,12 @@ export interface Config {
   db: {
     defaultIDType: number;
   };
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    n8n: N8N;
+  };
+  globalsSelect: {
+    n8n: N8NSelect<false> | N8NSelect<true>;
+  };
   locale: null;
   user: User & {
     collection: 'users';
@@ -201,6 +205,7 @@ export interface Word {
 export interface Sentence {
   id: number;
   sentence: string;
+  approved: boolean;
   word: number | Word;
   image: number | Image;
   audioPronunciation: number | Audio;
@@ -352,6 +357,7 @@ export interface WordsSelect<T extends boolean = true> {
  */
 export interface SentencesSelect<T extends boolean = true> {
   sentence?: T;
+  approved?: T;
   word?: T;
   image?: T;
   audioPronunciation?: T;
@@ -389,6 +395,26 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "n8n".
+ */
+export interface N8N {
+  id: number;
+  webhook?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "n8n_select".
+ */
+export interface N8NSelect<T extends boolean = true> {
+  webhook?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
