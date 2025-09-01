@@ -3,6 +3,7 @@ import config from '@payload-config'
 import { Sentence, Word } from '@/payload-types'
 import { WordCard } from '@/components/WordCard'
 import { SentenceCard } from '@/components/SentencesCard'
+import { redirect, RedirectType } from 'next/navigation'
 
 // Return a list of `params` to populate the [slug] dynamic segment
 export async function generateStaticParams() {
@@ -28,10 +29,24 @@ export default async function WordPage({ params }: { params: Promise<{ id: strin
       id: {
         equals: (await params).id,
       },
+      approved: {
+        equals: true,
+      },
+      image: {
+        exists: true,
+      },
+      audioPronunciation: {
+        exists: true,
+      },
     },
     depth: 2,
   })
   const word = queryResult.docs[0]
+
+  if (!word) {
+    redirect('/', RedirectType.replace)
+  }
+
   return (
     <div>
       <div className="h-[80vh] flex flex-col">

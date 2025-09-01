@@ -24,17 +24,19 @@ import { GetStaticPaths, GetStaticProps } from 'next'
 export default async function WordPage() {
   const payload = await getPayload({ config })
 
-  const words = await payload.find({
-    collection: 'words',
-    pagination: false,
-    depth: 0,
-  })
+  const words = (
+    await payload.find({
+      collection: 'words',
+      pagination: false,
+      depth: 0,
+    })
+  ).docs.filter((w) => w.approved && w.image && w.audioPronunciation)
 
   return (
     <div className="space-y-8 p-6">
-      <div>There are {words.docs.length} available words</div>
+      <div>There are {words.length} available words</div>
       <ul>
-        {words.docs.map((w) => (
+        {words.map((w) => (
           <li key={w.id}>
             <a href={`/word/${w.id}`}>{w.word}</a>
           </li>

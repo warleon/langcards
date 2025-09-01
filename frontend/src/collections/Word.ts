@@ -17,18 +17,25 @@ export const Words: CollectionConfig = {
       required: true,
     },
     {
+      name: 'approved',
+      type: 'checkbox',
+      label: 'Aproved',
+      required: true,
+      defaultValue: false,
+    },
+    {
       name: 'image',
       type: 'upload',
       relationTo: 'images', // ahora apunta solo a imágenes
       label: 'Image',
-      required: true,
+      required: false,
     },
     {
       name: 'audioPronunciation',
       type: 'upload',
       relationTo: 'audios', // ahora apunta solo a audios
       label: 'Pronunciation Audio',
-      required: true,
+      required: false,
     },
     {
       name: 'audioEffect',
