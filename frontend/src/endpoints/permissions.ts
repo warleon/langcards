@@ -5,11 +5,10 @@ export const permissionsEndpoint: Endpoint = {
   method: 'get',
   handler: async (req: PayloadRequest) => {
     const { payload } = req
-    const { permissions } = await payload.auth({ req, headers: req.headers })
 
-    const collections = permissions.collections
-    const globals = permissions.globals
-
-    return Response.json({ collections, globals })
+    return Response.json({
+      collections: payload.collections,
+      globals: payload.globals,
+    })
   },
 }
