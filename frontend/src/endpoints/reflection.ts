@@ -1,7 +1,7 @@
 import type { Endpoint, PayloadRequest } from 'payload'
 
-export const permissionsEndpoint: Endpoint = {
-  path: '/permissions',
+export const reflectionEndpoint: Endpoint = {
+  path: '/reflection',
   method: 'get',
   handler: async (req: PayloadRequest) => {
     const { payload } = req
