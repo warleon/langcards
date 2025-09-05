@@ -7,8 +7,8 @@ export const permissionsEndpoint: Endpoint = {
     const { payload } = req
 
     return Response.json({
-      collections: payload.collections,
-      globals: payload.globals,
+      collections: payload.config.collections,
+      globals: payload.config.globals,
     })
   },
 }
