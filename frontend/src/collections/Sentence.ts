@@ -42,14 +42,14 @@ export const Sentences: CollectionConfig = {
       type: 'upload',
       relationTo: 'images',
       label: 'Sentence Image',
-      required: true,
+      required: false,
     },
     {
       name: 'audioPronunciation',
       type: 'upload',
       relationTo: 'audios',
       label: 'Pronunciation Audio',
-      required: true,
+      required: false,
     },
   ],
   hooks: {
