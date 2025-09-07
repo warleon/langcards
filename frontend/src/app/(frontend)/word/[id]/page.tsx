@@ -1,6 +1,6 @@
 import { getPayload } from 'payload'
 import config from '@payload-config'
-import { Sentence, Word } from '@/payload-types'
+import { Sentence } from '@/payload-types'
 import { WordCard } from '@/components/WordCard'
 import { SentenceCard } from '@/components/SentencesCard'
 import { redirect, RedirectType } from 'next/navigation'
