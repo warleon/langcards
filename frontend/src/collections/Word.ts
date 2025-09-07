@@ -51,7 +51,7 @@ export const Words: CollectionConfig = {
 
         revalidatePath(`/word/${doc.id}`)
         revalidatePath(`/`)
-        const fromN8n = await n8nRequest(hook.req)
+        const fromN8n = await n8nRequest(hook.data)
         if (fromN8n) {
           return doc
         }
