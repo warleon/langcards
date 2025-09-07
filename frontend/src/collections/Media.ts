@@ -1,19 +1,5 @@
 import type { CollectionConfig } from 'payload'
-
-export const Media: CollectionConfig = {
-  slug: 'media',
-  access: {
-    read: () => true,
-  },
-  fields: [
-    {
-      name: 'alt',
-      type: 'text',
-      required: true,
-    },
-  ],
-  upload: true,
-}
+import path from 'path'
 
 export const Images: CollectionConfig = {
   slug: 'images',
@@ -29,6 +15,9 @@ export const Images: CollectionConfig = {
   ],
   upload: {
     mimeTypes: ['image/*'],
+    staticDir: process.env.MEDIA_PATH_PREFIX
+      ? path.join(process.env.MEDIA_PATH_PREFIX, 'images')
+      : undefined,
   },
 }
 
@@ -46,5 +35,8 @@ export const Audios: CollectionConfig = {
   ],
   upload: {
     mimeTypes: ['audio/*'],
+    staticDir: process.env.MEDIA_PATH_PREFIX
+      ? path.join(process.env.MEDIA_PATH_PREFIX, 'audios')
+      : undefined,
   },
 }
