@@ -4,6 +4,7 @@ import { CollectionConfig } from 'payload'
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import axios from 'axios'
+import { n8nRequest } from '@/lib/utils'
 
 export const Words: CollectionConfig = {
   slug: 'words',
@@ -47,8 +48,13 @@ export const Words: CollectionConfig = {
     afterChange: [
       async (hook) => {
         const doc = hook.doc as Word
+
         revalidatePath(`/word/${doc.id}`)
         revalidatePath(`/`)
+        const fromN8n = await n8nRequest(hook.req)
+        if (fromN8n) {
+          return doc
+        }
         if (!doc.image || !doc.audioPronunciation) {
           const payload = await getPayload({ config })
           const n8n = await payload.findGlobal({ slug: 'n8n' })
