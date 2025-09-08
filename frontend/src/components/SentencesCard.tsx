@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef } from 'react'
-import { Card, CardHeader, CardTitle, CardContent } from './ui/card'
+import { Card, CardHeader, CardTitle, CardContent } from './ui/baseCard'
 import { Audio, Image, Sentence } from '@/payload-types'
 import { SpecialText } from './ui/SpecialText'
 import NextImage from 'next/image'
