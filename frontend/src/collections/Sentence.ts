@@ -59,7 +59,7 @@ export const Sentences: CollectionConfig = {
         const doc = hook.doc as Sentence
         revalidatePath(`/word/${doc.word}`)
         const fromN8n = await n8nRequest(hook.req)
-        if (fromN8n) {
+        if (fromN8n && hook.operation !== 'create') {
           return doc
         }
         if (!doc.image || !doc.audioPronunciation) {

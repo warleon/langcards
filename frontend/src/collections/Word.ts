@@ -30,6 +30,13 @@ export const Words: CollectionConfig = {
       defaultValue: false,
     },
     {
+      name: 'maxSentences',
+      type: 'number',
+      label: 'Maximun number of Sentences',
+      required: true,
+      defaultValue: 1,
+    },
+    {
       name: 'image',
       type: 'upload',
       relationTo: 'images', // ahora apunta solo a imágenes
@@ -55,8 +62,17 @@ export const Words: CollectionConfig = {
         if (fromN8n) {
           return doc
         }
-        if (!doc.image || !doc.audioPronunciation) {
-          const payload = await getPayload({ config })
+        const payload = await getPayload({ config })
+        const count = await payload.count({
+          collection: 'sentences',
+          where: {
+            word: {
+              equals: doc.id,
+            },
+          },
+        })
+
+        if (!doc.image || !doc.audioPronunciation || count.totalDocs < doc.maxSentences) {
           const n8n = await payload.findGlobal({ slug: 'n8n' })
           if (n8n.webhook) axios.post(n8n.webhook, { collection: hook.collection.slug, doc })
         }

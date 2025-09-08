@@ -196,6 +196,7 @@ export interface Word {
   id: number;
   word: string;
   approved: boolean;
+  maxSentences: number;
   image?: (number | null) | Image;
   audioPronunciation?: (number | null) | Audio;
   updatedAt: string;
@@ -210,8 +211,8 @@ export interface Sentence {
   sentence: string;
   approved: boolean;
   word: number | Word;
-  image: number | Image;
-  audioPronunciation: number | Audio;
+  image?: (number | null) | Image;
+  audioPronunciation?: (number | null) | Audio;
   updatedAt: string;
   createdAt: string;
 }
@@ -352,6 +353,7 @@ export interface ImagesSelect<T extends boolean = true> {
 export interface WordsSelect<T extends boolean = true> {
   word?: T;
   approved?: T;
+  maxSentences?: T;
   image?: T;
   audioPronunciation?: T;
   updatedAt?: T;
