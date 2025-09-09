@@ -178,7 +178,7 @@ const BARE_COUNTRIES = [
   ['728', 'S. Sudan'],
 ]
 
-export const COUNTRIES_AFRICA = [
+const COUNTRIES_AFRICA = [
   [
     '834',
     'Tanzania',
@@ -422,7 +422,7 @@ export const COUNTRIES_AFRICA = [
   ],
 ]
 
-export const COUNTRIES_EUROPE = [
+const COUNTRIES_EUROPE = [
   ['040', 'Austria', [{ en: 'German', native: 'Deutsch' }]],
   [
     '056',
@@ -536,7 +536,7 @@ export const COUNTRIES_EUROPE = [
   ['499', 'Montenegro', [{ en: 'Montenegrin', native: 'Crnogorski' }]],
 ]
 
-export const COUNTRIES_ASIA = [
+const COUNTRIES_ASIA = [
   [
     '004',
     'Afghanistan',
@@ -689,7 +689,7 @@ export const COUNTRIES_ASIA = [
   ['268', 'Georgia', [{ en: 'Georgian', native: 'ქართული' }]],
 ]
 
-export const COUNTRIES_OCEANIA = [
+const COUNTRIES_OCEANIA = [
   [
     '242',
     'Fiji',
@@ -849,7 +849,7 @@ export const COUNTRIES_OCEANIA = [
   ],
 ]
 
-export const COUNTRIES_AMERICA = [
+const COUNTRIES_AMERICA = [
   // --- North America ---
   [
     '124',
@@ -982,10 +982,31 @@ export const COUNTRIES_AMERICA = [
   ['780', 'Trinidad and Tobago', [{ en: 'English', native: 'English' }]],
 ]
 
-export const WORLD_LANGUAGES = [
+const WORLD_COUNTRIES = [
   ...COUNTRIES_AFRICA,
   ...COUNTRIES_AMERICA,
   ...COUNTRIES_ASIA,
   ...COUNTRIES_EUROPE,
   ...COUNTRIES_OCEANIA,
 ]
+
+const LANGS_BY_MAP_CODE = new Map<
+  string,
+  {
+    country: string
+    langs: {
+      en: string
+      native: string
+    }[]
+  }
+>()
+
+WORLD_COUNTRIES.forEach((row) => {
+  if (!row[0]) return
+  LANGS_BY_MAP_CODE.set(row[0] as string, {
+    country: row[1] as string,
+    langs: row[2]! as { en: string; native: string }[],
+  })
+})
+
+export { LANGS_BY_MAP_CODE }
