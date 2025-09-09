@@ -1,9 +1,5 @@
-import { OnboardingFlow } from "@/components/onboarding-flow"
+import { Globe } from '@/components/globe'
 
 export default function HomePage() {
-  return (
-    <main className="min-h-screen bg-background">
-      <OnboardingFlow />
-    </main>
-  )
+  return <Globe></Globe>
 }
