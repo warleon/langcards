@@ -143,20 +143,22 @@ export function OnboardingFlow() {
                             <X className="h-3 w-3" />
                           </Button>
                         </div>
-                        <div className="flex-1 flex flex-col gap-1">
+
+                        {/* Proficiency levels in a 2x2 sub-card grid */}
+                        <div className="grid grid-cols-2 gap-2 flex-1">
                           {PROFICIENCY_LEVELS.map((level) => (
-                            <Button
+                            <Card
                               key={level.value}
-                              variant="ghost"
-                              size="sm"
-                              className="h-auto p-1 text-xs hover:bg-primary/10"
+                              className="border-primary/20 bg-white hover:bg-primary/10 transition cursor-pointer"
                               onClick={(e) => {
                                 e.stopPropagation()
                                 handleSelectProficiency(language, level.value)
                               }}
                             >
-                              {level.label}
-                            </Button>
+                              <CardContent className="p-2 flex items-center justify-center text-center">
+                                <span className="text-xs font-medium">{level.label}</span>
+                              </CardContent>
+                            </Card>
                           ))}
                         </div>
                       </CardContent>
