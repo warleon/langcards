@@ -4,8 +4,13 @@ import { timer } from 'd3'
 import { ComposableMap, Geographies, Geography, ZoomableGroup } from 'react-simple-maps'
 import { useDragRotation } from '@/hooks/useDragRotation'
 import axios from 'axios'
+import { promises } from 'dns'
 
-export const Globe: React.FC = () => {
+interface Props {
+  onSelect: (code: string) => void
+}
+
+export const Globe: React.FC<Props> = ({ onSelect }) => {
   const [rotation, setRotation] = useState<[number, number, number]>([0, 0, 23.5])
   const [selectedCountry, setSelectedCountry] = useState(null)
   const [autoRotate, setAutoRotate] = useState(true)
@@ -24,6 +29,9 @@ export const Globe: React.FC = () => {
     })
     return () => t.stop()
   }, [autoRotate])
+  useEffect(() => {
+    if (selectedCountry) onSelect(selectedCountry)
+  }, [selectedCountry, onSelect])
 
   return (
     <ComposableMap
@@ -44,7 +52,6 @@ export const Globe: React.FC = () => {
               key={geo.rsmKey}
               geography={geo}
               onClick={() => {
-                console.log('DEBUG geo:', geo)
                 setSelectedCountry(geo.id)
               }}
               style={{
