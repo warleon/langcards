@@ -990,6 +990,7 @@ const WORLD_COUNTRIES = [
   ...COUNTRIES_OCEANIA,
 ]
 
+const CODES_BY_LANG = new Map<string, string[]>()
 const LANGS_BY_MAP_CODE = new Map<
   string,
   {
@@ -1003,10 +1004,16 @@ const LANGS_BY_MAP_CODE = new Map<
 
 WORLD_COUNTRIES.forEach((row) => {
   if (!row[0]) return
+  //langs
   LANGS_BY_MAP_CODE.set(row[0] as string, {
     country: row[1] as string,
     langs: row[2]! as { en: string; native: string }[],
   })
+  // codes
+  for (const lang of row[2] as { en: string; native: string }[]) {
+    const codes = CODES_BY_LANG.get(lang.en) || []
+    CODES_BY_LANG.set(lang.en, [...codes, row[0] as string])
+  }
 })
 
-export { LANGS_BY_MAP_CODE }
+export { LANGS_BY_MAP_CODE, CODES_BY_LANG }
