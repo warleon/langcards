@@ -44,3 +44,8 @@ services:
 volumes:
   db_data:
   payload_media:
+
+networks:
+  coolify:
+    external: true
+    name: coolify
