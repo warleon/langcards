@@ -9,7 +9,7 @@ import React, {
 } from 'react'
 import { timer } from 'd3'
 import { ComposableMap, Geographies, Geography } from 'react-simple-maps'
-import { useDragRotation } from '@/hooks/useDragRotation'
+import { useDragX } from '@/hooks/useDragRotation'
 
 interface Props {
   onSelect: (code: string, rest: string[]) => void
@@ -107,7 +107,7 @@ export const Globe: React.FC<Props> = ({
     [multiSelect, stopRotation],
   )
   // Hook: Drag to rotate
-  useDragRotation(globeRef, (deltaX) => {
+  useDragX(globeRef, (deltaX) => {
     stopRotation()
     setRotation((prev) => [prev[0] + deltaX * rotationSpeed, prev[1], prev[2]])
   })
