@@ -5,10 +5,11 @@ import { cn } from '@/lib/utils'
 
 interface Props {
   languages: string[]
+  onChoose: (langs: string[]) => void
   classname?: string
 }
 
-export const Intro: React.FC<Props> = ({ languages, classname }) => {
+export const Intro: React.FC<Props> = ({ languages, classname, onChoose }) => {
   return (
     <motion.div
       className={cn(
@@ -29,6 +30,12 @@ export const Intro: React.FC<Props> = ({ languages, classname }) => {
 
       <div className="max-w-md w-full">
         <Selector
+          onSelect={(o, r) => {
+            onChoose([...r, o])
+          }}
+          onUnselect={(_, a) => {
+            onChoose(a)
+          }}
           heading="Supported Languages"
           notFound="Language not supported"
           options={languages}

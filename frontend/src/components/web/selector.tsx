@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import {
   Command,
   CommandInput,
@@ -13,6 +13,7 @@ import { Pill } from '../ui/pill'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import { ChevronUp, ChevronDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { useOutsideClick } from '@/hooks/onOutsideClick'
 
 interface Props {
   searchPlaceholder: string
@@ -22,12 +23,14 @@ interface Props {
   multiSelect?: boolean
   showPills?: boolean
   onSelect?: (option: string, rest: string[]) => void
+  onUnselect?: (option: string, all: string[]) => void
   classname?: string
 }
 export const Selector: React.FC<Props> = ({
   options,
   multiSelect,
   onSelect: strSelect,
+  onUnselect: strUnselect,
   showPills = true,
   heading,
   notFound,
@@ -35,21 +38,29 @@ export const Selector: React.FC<Props> = ({
   classname,
 }) => {
   const [open, setOpen] = useState(false)
+  const divRef = useRef<HTMLDivElement>(null)
+  useOutsideClick(divRef, () => setOpen(false))
 
   const { select, unselect, isSelected, selected } = useSelection({
     options: options.map((o) => ({ key: o, value: o })),
     onSelect: (c, r) => {
-      console.log('item selected', c)
       if (!strSelect) return
       strSelect(
         c.value,
         r.map(({ value }) => value),
       )
     },
+    onUnselect: (c, a) => {
+      if (!strUnselect) return
+      strUnselect(
+        c.value,
+        a.map(({ value }) => value),
+      )
+    },
     multiSelect,
   })
   return (
-    <div className={cn(classname, 'relative')}>
+    <div ref={divRef} className={cn(classname, 'relative')}>
       <Collapsible open={open} onOpenChange={setOpen}>
         <Command>
           <CollapsibleTrigger asChild>

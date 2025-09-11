@@ -172,6 +172,8 @@ export const Globe: React.FC<Props> = ({
                   geography={geo}
                   style={{
                     default: style?.disabled,
+                    hover: style?.disabled,
+                    pressed: style?.disabled,
                   }}
                 />
               ),
