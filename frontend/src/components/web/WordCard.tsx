@@ -1,12 +1,11 @@
 'use client'
 
-import { useRef } from 'react'
-import { Card, CardHeader, CardTitle, CardContent } from './ui/baseCard'
-import { Audio, Image, Sentence } from '@/payload-types'
-import { SpecialText } from './ui/SpecialText'
+import { useEffect, useRef } from 'react'
+import { Card, CardHeader, CardTitle, CardContent } from '../ui/baseCard'
+import { Audio, Image, Word } from '@/payload-types'
 import NextImage from 'next/image'
 
-export function SentenceCard({ sentence, audioPronunciation, image }: Sentence) {
+export function WordCard({ word, audioPronunciation, image }: Word) {
   const audioPronRef = useRef<HTMLAudioElement>(null)
 
   const handlePlay = async () => {
@@ -15,23 +14,25 @@ export function SentenceCard({ sentence, audioPronunciation, image }: Sentence) 
     }
   }
 
+  useEffect(() => {
+    handlePlay()
+  }, [])
+
   return (
     <Card
-      className="cursor-pointer hover:shadow-md transition max-w-4xl h-fit mx-auto"
+      className="cursor-pointer hover:shadow-xl transition max-w-lg h-fit mx-auto"
       onClick={handlePlay}
     >
       <CardHeader>
-        <CardTitle className="text-lg font-medium mx-auto">
-          <SpecialText text={sentence}></SpecialText>
-        </CardTitle>
+        <CardTitle className="text-2xl font-bold mx-auto">{word}</CardTitle>
       </CardHeader>
       <CardContent>
         <NextImage
           width={1024}
           height={1024}
           src={(image as Image).url!}
-          alt={sentence}
-          className="rounded-lg object-cover"
+          alt={word}
+          className="rounded-xl object-cover "
         />
         <audio ref={audioPronRef} src={(audioPronunciation as Audio).url!} preload="auto" />
       </CardContent>

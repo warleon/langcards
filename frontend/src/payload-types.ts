@@ -92,9 +92,11 @@ export interface Config {
   };
   globals: {
     n8n: N8N;
+    supported_languages: SupportedLanguage;
   };
   globalsSelect: {
     n8n: N8NSelect<false> | N8NSelect<true>;
+    supported_languages: SupportedLanguagesSelect<false> | SupportedLanguagesSelect<true>;
   };
   locale: null;
   user: User & {
@@ -416,10 +418,38 @@ export interface N8N {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "supported_languages".
+ */
+export interface SupportedLanguage {
+  id: number;
+  languages: {
+    language: string;
+    id?: string | null;
+  }[];
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "n8n_select".
  */
 export interface N8NSelect<T extends boolean = true> {
   webhook?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "supported_languages_select".
+ */
+export interface SupportedLanguagesSelect<T extends boolean = true> {
+  languages?:
+    | T
+    | {
+        language?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

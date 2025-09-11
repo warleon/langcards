@@ -21,7 +21,7 @@ interface Props {
   style?: {
     enabled?: CSSProperties
     disabled?: CSSProperties
-    slected?: CSSProperties
+    selected?: CSSProperties
     hover?: CSSProperties
     pressed?: CSSProperties
   }
@@ -147,9 +147,9 @@ export const Globe: React.FC<Props> = ({
                       unselect(geo.id)
                     }}
                     style={{
-                      default: style?.slected,
-                      hover: style?.slected,
-                      pressed: style?.slected,
+                      default: style?.selected,
+                      hover: style?.selected,
+                      pressed: style?.selected,
                     }}
                   />
                 ) : (

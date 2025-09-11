@@ -1,8 +1,8 @@
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import { Sentence } from '@/payload-types'
-import { WordCard } from '@/components/WordCard'
-import { SentenceCard } from '@/components/SentencesCard'
+import { WordCard } from '@/components/web/WordCard'
+import { SentenceCard } from '@/components/web/SentencesCard'
 import { redirect, RedirectType } from 'next/navigation'
 
 // Return a list of `params` to populate the [slug] dynamic segment

@@ -8,7 +8,7 @@ import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 
 import { Users, Audios, Images, Words, Sentences } from './collections'
-import { n8n } from './globals'
+import { n8n, supportedLanguages } from './globals'
 import { reflectionEndpoint } from './endpoints'
 
 const filename = fileURLToPath(import.meta.url)
@@ -22,7 +22,7 @@ export default buildConfig({
     },
   },
   collections: [Users, Audios, Images, Words, Sentences],
-  globals: [n8n],
+  globals: [n8n, supportedLanguages],
   endpoints: [reflectionEndpoint],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
