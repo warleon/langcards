@@ -30,6 +30,8 @@ services:
         PAYLOAD_SECRET: ${SERVICE_BASE64_128_PAYLOAD}
         REVALIDATE_SECRET: ${SERVICE_BASE64_128_REVALIDATE}
         MEDIA_PATH_PREFIX: "/payload_media"
+      network: coolify
+
     restart: always
     ports:
       - "3001:3000"
