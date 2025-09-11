@@ -1,12 +1,5 @@
 'use client'
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  type CSSProperties,
-  useCallback,
-  HTMLProps,
-} from 'react'
+import React, { useState, useEffect, useRef, type CSSProperties, useCallback } from 'react'
 import { timer } from 'd3'
 import { ComposableMap, Geographies, Geography } from 'react-simple-maps'
 import { useDragX } from '@/hooks/useDragRotation'

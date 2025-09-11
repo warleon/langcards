@@ -1,5 +1,3 @@
-import { Globe } from '@/components/web/globe'
-import { Intro } from '@/components/web/intro'
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import { Hero } from '@/components/web/Hero'

@@ -66,7 +66,7 @@ export const useSelection = ({ onSelect, onUnselect, options, multiSelect }: Pro
       }
       setSelectedPlural([])
     },
-    [multiSelect, onUnselect, optionsMap],
+    [multiSelect, onUnselect, optionsMap, selectedPlural],
   )
   return {
     select,

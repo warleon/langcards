@@ -13,26 +13,17 @@ WORKDIR /app
 COPY . .
 RUN npm i --force
 
-# Next.js collects completely anonymous telemetry data about general usage.
-# Learn more here: https://nextjs.org/telemetry
-# Uncomment the following line in case you want to disable telemetry during the build.
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
-# Uncomment the following line in case you want to disable telemetry during runtime.
-# ENV NEXT_TELEMETRY_DISABLED 1
 
-#RUN addgroup --system --gid 1001 nodejs
-#RUN adduser --system --uid 1001 nextjs
-# Set the correct permission for prerender cache
-#RUN chown nextjs:nodejs /app
+ARG  DATABASE_URI
+ARG  PAYLOAD_SECRET
+ARG  REVALIDATE_SECRET
+ARG  MEDIA_PATH_PREFIX
 
-# Automatically leverage output traces to reduce image size
-# https://nextjs.org/docs/advanced-features/output-file-tracing
-#RUN chown nextjs:nodejs /app/.next/standalone
-#RUN chown nextjs:nodejs /app/.next/static 
+ENV  DATABASE_URI=$DATABASE_URI
+ENV  PAYLOAD_SECRET=$PAYLOAD_SECRET
+ENV  REVALIDATE_SECRET=$REVALIDATE_SECRET
+ENV  MEDIA_PATH_PREFIX=$MEDIA_PATH_PREFIX
 
-#USER nextjs
-
-# server.js is created by next build from the standalone output
-# https://nextjs.org/docs/pages/api-reference/next-config-js/output
-#CMD ["HOSTNAME='0.0.0.0'", "node" ,"server.js"]
+RUN npm run build

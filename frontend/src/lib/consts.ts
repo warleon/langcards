@@ -1,4 +1,4 @@
-const BARE_COUNTRIES = [
+const _BARE_COUNTRIES = [
   ['242', 'Fiji'],
   ['834', 'Tanzania'],
   ['732', 'W. Sahara'],
