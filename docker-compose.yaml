@@ -46,6 +46,7 @@ services:
     command: ["npm", "run", "start"]
     networks:
       - coolify
+    working_dir: /app
 
 volumes:
   db_data:
