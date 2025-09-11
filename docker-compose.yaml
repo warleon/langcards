@@ -19,6 +19,8 @@ services:
       start_period: 10s # grace period before healthcheck starts
     profiles:
       - development
+    networks:
+      - coolify
 
   frontend:
     build:
@@ -40,6 +42,8 @@ services:
     volumes:
       - payload_media:/payload_media
     command: ["npm", "run", "start"]
+    networks:
+      - coolify
 
 volumes:
   db_data:
