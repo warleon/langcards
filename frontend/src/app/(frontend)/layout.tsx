@@ -12,7 +12,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>
-        <main className="container mx-auto">{children}</main>
+        <main className="min-w-xs container mx-auto">{children}</main>
       </body>
     </html>
   )

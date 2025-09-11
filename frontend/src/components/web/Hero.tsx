@@ -8,10 +8,10 @@ interface Props {
 }
 export const Hero: React.FC<Props> = ({ languages }) => {
   return (
-    <section className="py-8  flex">
-      <Intro languages={languages}></Intro>
+    <section className="py-8 flex flex-wrap">
+      <Intro classname="px-4" languages={languages}></Intro>
       <Globe
-        className="w-1/3 ml-auto my-8 mr-8"
+        className="grow w-1/4 my-8 mx-auto"
         rotationSpeed={0.5}
         onSelect={() => {}}
         resumeRotationTime={2000}

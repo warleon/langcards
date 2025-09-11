@@ -18,8 +18,7 @@
     "test:e2e": "cross-env NODE_OPTIONS=\"--no-deprecation --no-experimental-strip-types\" pnpm exec playwright test",
     "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts",
     "migrate": "npm run payload migrate:create && npm run payload migrate",
-    "deploy": "npm run payload migrate && npm run build && npm run start",
-    "prebuild": "npm run generate:migration"
+    "deploy": "npm run payload migrate && npm run build && npm run start"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "3.54.0",
@@ -28,6 +27,7 @@
     "@payloadcms/richtext-lexical": "3.54.0",
     "@payloadcms/ui": "3.54.0",
     "@radix-ui/react-aspect-ratio": "^1.1.7",
+    "@radix-ui/react-collapsible": "^1.1.12",
     "@radix-ui/react-dialog": "^1.1.15",
     "@radix-ui/react-progress": "^1.1.7",
     "@radix-ui/react-slot": "^1.2.3",

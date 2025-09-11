@@ -1,26 +1,20 @@
 'use client'
-import { useState } from 'react'
 import { motion } from 'framer-motion'
-import {
-  Command,
-  CommandInput,
-  CommandList,
-  CommandEmpty,
-  CommandGroup,
-  CommandItem,
-} from '@/components/ui/command'
-import { Card, CardContent } from '@/components/ui/card'
+import { Selector } from './selector'
+import { cn } from '@/lib/utils'
 
 interface Props {
   languages: string[]
+  classname?: string
 }
 
-export const Intro: React.FC<Props> = ({ languages }) => {
-  const [selected, setSelected] = useState<string | null>(null)
-
+export const Intro: React.FC<Props> = ({ languages, classname }) => {
   return (
     <motion.div
-      className="max-w-3xl mx-auto text-center space-y-6"
+      className={cn(
+        'flex flex-col items-center gap-8 max-w-2xl mx-auto text-center space-y-6',
+        classname,
+      )}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
@@ -33,29 +27,14 @@ export const Intro: React.FC<Props> = ({ languages }) => {
         opportunities.
       </p>
 
-      <div className="max-w-md mx-auto">
-        <Card className="rounded-2xl shadow-md">
-          <CardContent className="p-4">
-            <Command>
-              <CommandInput placeholder="Search a language..." />
-              <CommandList>
-                <CommandEmpty>No language found.</CommandEmpty>
-                <CommandGroup heading="Languages">
-                  {languages.map((lang) => (
-                    <CommandItem key={lang} onSelect={() => setSelected(lang)}>
-                      {lang}
-                    </CommandItem>
-                  ))}
-                </CommandGroup>
-              </CommandList>
-            </Command>
-            {selected && (
-              <p className="text-sm text-center mt-3 text-muted-foreground">
-                You selected <span className="font-medium">{selected}</span>
-              </p>
-            )}
-          </CardContent>
-        </Card>
+      <div className="max-w-md w-full">
+        <Selector
+          heading="Supported Languages"
+          notFound="Language not supported"
+          options={languages}
+          searchPlaceholder="Search Language"
+          showPills={false}
+        ></Selector>
       </div>
     </motion.div>
   )
