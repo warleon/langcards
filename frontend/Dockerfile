@@ -45,4 +45,4 @@ COPY --from=builder /app/.next/static ./.next/static
 
 ENV HOSTNAME="0.0.0.0"
 
-CMD ["server.js"]
+ENTRYPOINT [ "sh" ]
