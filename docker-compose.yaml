@@ -43,7 +43,6 @@ services:
       MEDIA_PATH_PREFIX: "/payload_media"
     volumes:
       - payload_media:/payload_media
-    command: ["node", "server.js"]
     networks:
       - coolify
     working_dir: /app
