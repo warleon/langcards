@@ -46,7 +46,6 @@ services:
     networks:
       - coolify
     working_dir: /app
-    command: ["node", "server.js"]
 
 volumes:
   db_data:
