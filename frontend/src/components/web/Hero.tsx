@@ -29,9 +29,9 @@ export const Hero: React.FC<Props> = ({ languages }) => {
 
   return (
     <section className="py-8 flex flex-wrap">
-      <Intro classname="px-4" languages={languages} onChoose={setLangs}></Intro>
+      <Intro classname="px-4" languages={languages} selected={langs} onChoose={setLangs}></Intro>
       <Globe
-        className="grow w-1/4 my-8 mx-auto"
+        className="grow w-1/4 my-2 mx-auto"
         rotationSpeed={1}
         onSelect={() => {}}
         resumeRotationTime={2000}

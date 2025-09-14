@@ -44,6 +44,7 @@ export const Selector: React.FC<Props> = ({
   const { select, unselect, isSelected, selected } = useSelection({
     options: options.map((o) => ({ key: o, value: o })),
     onSelect: (c, r) => {
+      if (!multiSelect) setOpen(false)
       if (!strSelect) return
       strSelect(
         c.value,
@@ -74,14 +75,13 @@ export const Selector: React.FC<Props> = ({
             </div>
           </CollapsibleTrigger>
           <CollapsibleContent>
-            <CommandList className="absolute bg-popover text-popover-foreground w-full">
+            <CommandList className="absolute bg-popover w-full text-popover-foreground">
               <CommandEmpty>{notFound}</CommandEmpty>
               <CommandGroup heading={heading}>
                 {options.map((opt) => (
                   <CommandItem
                     key={opt}
                     onSelect={(val) => {
-                      console.log('item clicked', val)
                       if (!isSelected(val)) select(val)
                       else unselect(val)
                     }}
@@ -89,7 +89,7 @@ export const Selector: React.FC<Props> = ({
                   >
                     {opt}
                   </CommandItem>
-                ))}{' '}
+                ))}
               </CommandGroup>
             </CommandList>
           </CollapsibleContent>

@@ -2,14 +2,17 @@
 import { motion } from 'framer-motion'
 import { Selector } from './selector'
 import { cn } from '@/lib/utils'
+import { ActionButton } from './actionButton'
+import { Button } from '../ui/button'
 
 interface Props {
   languages: string[]
+  selected: string[]
   onChoose: (langs: string[]) => void
   classname?: string
 }
 
-export const Intro: React.FC<Props> = ({ languages, classname, onChoose }) => {
+export const Intro: React.FC<Props> = ({ languages, selected, classname, onChoose }) => {
   return (
     <motion.div
       className={cn(
@@ -28,21 +31,22 @@ export const Intro: React.FC<Props> = ({ languages, classname, onChoose }) => {
         opportunities.
       </p>
 
-      <div className="max-w-md w-full">
-        <Selector
-          onSelect={(o, r) => {
-            onChoose([...r, o])
-          }}
-          onUnselect={(_, a) => {
-            onChoose(a)
-          }}
-          heading="Supported Languages"
-          notFound="Language not supported"
-          options={languages}
-          searchPlaceholder="Search Language"
-          showPills={false}
-        ></Selector>
-      </div>
+      <Selector
+        classname="max-w-md w-full"
+        onSelect={(o, r) => {
+          onChoose([...r, o])
+        }}
+        onUnselect={(_, a) => {
+          onChoose(a)
+        }}
+        heading="Supported Languages"
+        notFound="Language not supported"
+        options={languages}
+        searchPlaceholder="Search Language"
+        showPills={false}
+      ></Selector>
+
+      <ActionButton disabled={!selected.length}>Lets go!</ActionButton>
     </motion.div>
   )
 }
