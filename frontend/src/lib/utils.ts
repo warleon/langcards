@@ -69,3 +69,20 @@ export function explodeLocales<T extends Record<string, any>>(
     return flat as LocalizedDoc<T>
   })
 }
+
+export function findContentByLocale<T extends { locale: string }>(
+  contents: T[],
+  locale: string,
+  fallback = 'en',
+) {
+  let content = contents.find((c) => c.locale === locale)
+  if (!content) {
+    content = contents.find((c) => c.locale === fallback)
+  }
+  if (!content) {
+    throw new Error(
+      `Neither ${locale} or ${fallback} contents where found in available locales ${contents.map((c) => c.locale)}`,
+    )
+  }
+  return content
+}

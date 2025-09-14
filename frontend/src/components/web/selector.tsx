@@ -26,6 +26,7 @@ interface Props {
   onUnselect?: (option: string, all: string[]) => void
   classname?: string
   defaultSelection?: string
+  canBeEmpty?: boolean
 }
 export const Selector: React.FC<Props> = ({
   options,
@@ -38,6 +39,7 @@ export const Selector: React.FC<Props> = ({
   searchPlaceholder,
   classname,
   defaultSelection,
+  canBeEmpty = true,
 }) => {
   const [open, setOpen] = useState(false)
   const divRef = useRef<HTMLDivElement>(null)
@@ -62,6 +64,7 @@ export const Selector: React.FC<Props> = ({
     },
     multiSelect,
     defaultSelection,
+    canBeEmpty,
   })
   return (
     <div ref={divRef} className={cn(classname, 'relative')}>

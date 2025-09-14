@@ -11,6 +11,7 @@ interface Props {
   options: KV[]
   multiSelect?: boolean
   defaultSelection?: string
+  canBeEmpty?: boolean
 }
 export const useSelection = ({
   onSelect,
@@ -18,7 +19,11 @@ export const useSelection = ({
   options,
   multiSelect,
   defaultSelection,
+  canBeEmpty = true,
 }: Props) => {
+  if (!canBeEmpty && defaultSelection === undefined)
+    throw new Error("No default value was provided for Selection marked as 'can't be empty'")
+
   const optionsMap = useMemo(() => {
     const map = new Map<string, string>()
     options.forEach(({ key, value }) => {
@@ -58,6 +63,7 @@ export const useSelection = ({
   )
   const unselect = useCallback(
     (key: string) => {
+      if (selectedPlural.length == 1 && !canBeEmpty) return
       if (onUnselect) {
         const s = {
           key,
@@ -75,7 +81,7 @@ export const useSelection = ({
       }
       setSelectedPlural([])
     },
-    [multiSelect, onUnselect, optionsMap, selectedPlural],
+    [canBeEmpty, multiSelect, onUnselect, optionsMap, selectedPlural],
   )
   return {
     select,

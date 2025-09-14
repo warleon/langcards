@@ -49,6 +49,7 @@ export const Intro: React.FC<Props> = ({
         searchPlaceholder={content.selectorSearchPlaceholder}
         showPills={false}
         defaultSelection={defaultLanguage}
+        canBeEmpty={false}
       />
 
       <ActionButton disabled={!selected.length}>{content.buttonLabel}</ActionButton>

@@ -5,6 +5,7 @@ import { Globe } from './globe'
 import { CODES_BY_LANG } from '@/lib/consts'
 import { Intro as IntroContent } from '@/payload-types'
 import { LocalizedDoc } from '@/lib/utils'
+import { findContentByLocale } from '@/lib/utils'
 
 interface Props {
   languages: string[]
@@ -39,7 +40,7 @@ export const Hero: React.FC<Props> = ({ languages, defaultLanguage, introContent
         languages={languages}
         selected={langs}
         onChoose={setLangs}
-        content={introContent.find((c) => c.locale === langs[0])!}
+        content={findContentByLocale(introContent, langs[0], defaultLanguage)}
       ></Intro>
       <Globe
         className="grow w-1/4 my-2 mx-auto"
