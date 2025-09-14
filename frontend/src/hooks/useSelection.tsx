@@ -10,8 +10,15 @@ interface Props {
   onUnselect?: (key: KV, all: KV[]) => void
   options: KV[]
   multiSelect?: boolean
+  defaultSelection?: string
 }
-export const useSelection = ({ onSelect, onUnselect, options, multiSelect }: Props) => {
+export const useSelection = ({
+  onSelect,
+  onUnselect,
+  options,
+  multiSelect,
+  defaultSelection,
+}: Props) => {
   const optionsMap = useMemo(() => {
     const map = new Map<string, string>()
     options.forEach(({ key, value }) => {
@@ -19,7 +26,9 @@ export const useSelection = ({ onSelect, onUnselect, options, multiSelect }: Pro
     })
     return map
   }, [options])
-  const [selectedPlural, setSelectedPlural] = useState<KV[]>([])
+  const [selectedPlural, setSelectedPlural] = useState<KV[]>(
+    options.filter((o) => o.key === defaultSelection),
+  )
   const isSelected = useCallback(
     (key: string) => {
       return selectedPlural.find(({ key: key_ }) => key === key_)

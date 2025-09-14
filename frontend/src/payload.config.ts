@@ -7,7 +7,7 @@ import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 
-import { Users, Audios, Images, Words, Sentences } from './collections'
+import { Users, Audios, Images, Words, Sentences, Intros } from './collections'
 import { n8n, supportedLanguages } from './globals'
 import { reflectionEndpoint } from './endpoints'
 
@@ -21,9 +21,28 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Audios, Images, Words, Sentences],
+  collections: [Users, Audios, Images, Words, Sentences, Intros],
   globals: [n8n, supportedLanguages],
   endpoints: [reflectionEndpoint],
+  localization: {
+    locales: [
+      {
+        code: 'en',
+        label: 'English',
+      },
+      {
+        code: 'es',
+        label: 'Spanish',
+      },
+      {
+        code: 'ru',
+        label: 'Russian',
+      },
+      { code: 'pt', label: 'Portuguese' },
+    ],
+    defaultLocale: 'en',
+    fallback: true,
+  },
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

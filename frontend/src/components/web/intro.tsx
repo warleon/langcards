@@ -3,16 +3,25 @@ import { motion } from 'framer-motion'
 import { Selector } from './selector'
 import { cn } from '@/lib/utils'
 import { ActionButton } from './actionButton'
-import { Button } from '../ui/button'
+import { Intro as IntroContent } from '@/payload-types'
 
-interface Props {
+type Props = {
   languages: string[]
   selected: string[]
-  onChoose: (langs: string[]) => void
   classname?: string
+  onChoose: (values: string[]) => void
+  content: IntroContent
+  defaultLanguage: string
 }
 
-export const Intro: React.FC<Props> = ({ languages, selected, classname, onChoose }) => {
+export const Intro: React.FC<Props> = ({
+  languages,
+  selected,
+  defaultLanguage,
+  classname,
+  onChoose,
+  content,
+}) => {
   return (
     <motion.div
       className={cn(
@@ -23,13 +32,8 @@ export const Intro: React.FC<Props> = ({ languages, selected, classname, onChoos
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
     >
-      <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
-        Unlock Your Potential Through Language
-      </h1>
-      <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-        Start your journey today — choose your first language and open the door to new
-        opportunities.
-      </p>
+      <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">{content.title}</h1>
+      <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{content.subtitle}</p>
 
       <Selector
         classname="max-w-md w-full"
@@ -39,14 +43,15 @@ export const Intro: React.FC<Props> = ({ languages, selected, classname, onChoos
         onUnselect={(_, a) => {
           onChoose(a)
         }}
-        heading="Supported Languages"
-        notFound="Language not supported"
+        heading={content.selectorHeading}
+        notFound={content.selectorNotFound}
         options={languages}
-        searchPlaceholder="Search Language"
+        searchPlaceholder={content.selectorSearchPlaceholder}
         showPills={false}
-      ></Selector>
+        defaultSelection={defaultLanguage}
+      />
 
-      <ActionButton disabled={!selected.length}>Lets go!</ActionButton>
+      <ActionButton disabled={!selected.length}>{content.buttonLabel}</ActionButton>
     </motion.div>
   )
 }

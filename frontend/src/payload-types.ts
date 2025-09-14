@@ -72,6 +72,7 @@ export interface Config {
     images: Image;
     words: Word;
     sentences: Sentence;
+    intros: Intro;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -83,6 +84,7 @@ export interface Config {
     images: ImagesSelect<false> | ImagesSelect<true>;
     words: WordsSelect<false> | WordsSelect<true>;
     sentences: SentencesSelect<false> | SentencesSelect<true>;
+    intros: IntrosSelect<false> | IntrosSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -98,7 +100,7 @@ export interface Config {
     n8n: N8NSelect<false> | N8NSelect<true>;
     supported_languages: SupportedLanguagesSelect<false> | SupportedLanguagesSelect<true>;
   };
-  locale: null;
+  locale: 'en' | 'es' | 'ru' | 'pt';
   user: User & {
     collection: 'users';
   };
@@ -220,6 +222,21 @@ export interface Sentence {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "intros".
+ */
+export interface Intro {
+  id: number;
+  title: string;
+  subtitle: string;
+  selectorHeading: string;
+  selectorNotFound: string;
+  selectorSearchPlaceholder: string;
+  buttonLabel: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -244,6 +261,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'sentences';
         value: number | Sentence;
+      } | null)
+    | ({
+        relationTo: 'intros';
+        value: number | Intro;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -371,6 +392,20 @@ export interface SentencesSelect<T extends boolean = true> {
   word?: T;
   image?: T;
   audioPronunciation?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "intros_select".
+ */
+export interface IntrosSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  selectorHeading?: T;
+  selectorNotFound?: T;
+  selectorSearchPlaceholder?: T;
+  buttonLabel?: T;
   updatedAt?: T;
   createdAt?: T;
 }

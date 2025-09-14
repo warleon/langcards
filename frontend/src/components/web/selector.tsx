@@ -25,6 +25,7 @@ interface Props {
   onSelect?: (option: string, rest: string[]) => void
   onUnselect?: (option: string, all: string[]) => void
   classname?: string
+  defaultSelection?: string
 }
 export const Selector: React.FC<Props> = ({
   options,
@@ -36,6 +37,7 @@ export const Selector: React.FC<Props> = ({
   notFound,
   searchPlaceholder,
   classname,
+  defaultSelection,
 }) => {
   const [open, setOpen] = useState(false)
   const divRef = useRef<HTMLDivElement>(null)
@@ -59,6 +61,7 @@ export const Selector: React.FC<Props> = ({
       )
     },
     multiSelect,
+    defaultSelection,
   })
   return (
     <div ref={divRef} className={cn(classname, 'relative')}>
