@@ -57,7 +57,7 @@ export const Sentences: CollectionConfig = {
     afterChange: [
       async (hook) => {
         const doc = hook.doc as Sentence
-        revalidatePath(`/word/${doc.word}`)
+        revalidatePath(`/word/${doc.word}`, 'page')
         const fromN8n = await n8nRequest(hook.req)
         if (fromN8n && hook.operation !== 'create') {
           return doc
@@ -72,7 +72,7 @@ export const Sentences: CollectionConfig = {
     ],
     afterDelete: [
       ({ doc }) => {
-        revalidatePath(`/word/${(doc as Sentence).word}`)
+        revalidatePath(`/word/${(doc as Sentence).word}`, 'page')
         return doc
       },
     ],

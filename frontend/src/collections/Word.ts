@@ -56,8 +56,8 @@ export const Words: CollectionConfig = {
       async (hook) => {
         const doc = hook.doc as Word
 
-        revalidatePath(`/word/${doc.id}`)
-        revalidatePath(`/`)
+        revalidatePath(`/word/${doc.id}`, 'page')
+        revalidatePath(`/`, 'page')
         const fromN8n = await n8nRequest(hook.data)
         if (fromN8n) {
           return doc
@@ -81,8 +81,8 @@ export const Words: CollectionConfig = {
     ],
     afterDelete: [
       ({ doc }) => {
-        revalidatePath(`/word/${(doc as Word).id}`)
-        revalidatePath(`/`)
+        revalidatePath(`/word/${(doc as Word).id}`, 'page')
+        revalidatePath(`/`, 'page')
         return doc
       },
     ],

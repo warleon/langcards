@@ -1,3 +1,5 @@
+import { Intro } from '@/payload-types'
+import { revalidatePath } from 'next/cache'
 import { CollectionConfig } from 'payload'
 
 export const Intros: CollectionConfig = {
@@ -45,4 +47,21 @@ export const Intros: CollectionConfig = {
       localized: true,
     },
   ],
+  hooks: {
+    afterChange: [
+      async (hook) => {
+        const doc = hook.doc as Intro
+        revalidatePath('/', 'page')
+        //TODO generate the other locales with n8n
+        return doc
+      },
+    ],
+    afterDelete: [
+      async (hook) => {
+        const doc = hook.doc as Intro
+        revalidatePath('/', 'page')
+        return doc
+      },
+    ],
+  },
 }
