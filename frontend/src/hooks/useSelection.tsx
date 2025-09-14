@@ -46,7 +46,6 @@ export const useSelection = ({
         key,
         value: optionsMap.get(key)!,
       }
-      console.log('on select', s)
       if (multiSelect) {
         onSelect(s, selectedPlural)
         setSelectedPlural((curr) => {
