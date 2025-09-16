@@ -2,7 +2,6 @@ import { getPayload, SanitizedLocalizationConfig } from 'payload'
 import config from '@payload-config'
 import { Hero } from '@/components/web/Hero'
 import { explodeLocales } from '@/lib/utils'
-import { getUserLocale } from '@/lib/userLocale'
 
 export default async function HomePage() {
   const payload = await getPayload({ config })
@@ -14,6 +13,5 @@ export default async function HomePage() {
   const localizationConfig = (await config).localization as SanitizedLocalizationConfig
   const locales = localizationConfig.locales
   const content = intros.docs.flatMap((d) => explodeLocales(d, locales))
-  const languages = locales.map((l) => l.label as string)
-  return <Hero languages={languages} introContent={content}></Hero>
+  return <Hero introContent={content}></Hero>
 }

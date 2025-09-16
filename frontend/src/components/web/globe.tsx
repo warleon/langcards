@@ -21,13 +21,33 @@ interface Props {
   }
   className?: string
 }
+const BASE: React.CSSProperties = {
+  fill: 'var(--muted-foreground)',
+  stroke: 'var(--muted)',
+  strokeWidth: 0.5,
+  outline: 'none',
+}
+
+const GLOW: React.CSSProperties = {
+  fill: 'var(--primary)',
+  stroke: 'var(--muted)',
+  strokeWidth: 1,
+  filter: 'drop-shadow(0 4px 6px var(--primary))',
+  outline: 'none',
+}
 
 export const Globe: React.FC<Props> = ({
   onSelect,
   enabledCodes = [],
   defaultAllEnabled = true,
   multiSelect = false,
-  style,
+  style = {
+    selected: GLOW,
+    disabled: BASE,
+    enabled: GLOW,
+    hover: GLOW,
+    pressed: GLOW,
+  },
   resumeRotationTime,
   className,
   rotationSpeed = 0.2,

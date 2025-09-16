@@ -1,22 +1,25 @@
 'use client'
 import { motion } from 'framer-motion'
-import { Selector } from './selector'
+import { Selector } from '../selector'
 import { cn } from '@/lib/utils'
-import { ActionButton } from './actionButton'
+import { ActionButton } from '../actionButton'
 import { Intro as IntroContent } from '@/payload-types'
 import { useOnboarding } from '@/lib/redux/features/onboarding'
 import { useMemo } from 'react'
+import { ArrowRight } from 'lucide-react'
 
 type Props = {
   classname?: string
   content: IntroContent
-  onButtonClick: () => void
+  next: () => void
 }
 
-export const Intro: React.FC<Props> = ({ classname, content, onButtonClick }) => {
+export const IntroStep: React.FC<Props> = ({ classname, content, next }) => {
   const { onboarding, setLocale } = useOnboarding()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const languages = useMemo(() => onboarding.locales.map((l) => l.label as string), [])
+  const languages = useMemo(
+    () => onboarding.locales.map((l) => l.label as string),
+    [onboarding.locales],
+  )
 
   return (
     <motion.div
@@ -33,10 +36,10 @@ export const Intro: React.FC<Props> = ({ classname, content, onButtonClick }) =>
 
       <Selector
         classname="max-w-md w-full"
-        onSelect={(o, r) => {
-          setLocale(onboarding.locales.find((l) => l.label === o) ?? onboarding.locale)
+        onSelect={(o, _) => {
+          const locale = onboarding.locales.find((l) => l.label === o) ?? onboarding.locale
+          setLocale(locale)
         }}
-        //onUnselect={(_, a) => {}}
         heading={content.selectorHeading}
         notFound={content.selectorNotFound}
         options={languages}
@@ -49,10 +52,11 @@ export const Intro: React.FC<Props> = ({ classname, content, onButtonClick }) =>
       <ActionButton
         onClick={(e) => {
           e.preventDefault()
-          onButtonClick()
+          next()
         }}
       >
         {content.buttonLabel}
+        <ArrowRight></ArrowRight>
       </ActionButton>
     </motion.div>
   )

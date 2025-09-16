@@ -7,23 +7,22 @@ export interface OnboardingState {
   locale: Locale
   detectedLocale: Locale
   locales: Locale[]
+  languages: Locale[]
+  step: number
 }
 const initialState: OnboardingState = {
   initialized: false,
   locale: { code: 'en', label: 'English' },
   detectedLocale: { code: 'en', label: 'English' },
   locales: [],
+  languages: [],
+  step: 0,
 }
 
 const onboardingSlice = createSlice({
   name: 'onboarding',
   initialState,
   reducers: {
-    //initOnboarding: (state, action: PayloadAction<OnboardingState>) => {
-    //  if (state.initialized) return
-    //  state.initialized = true
-    //  state.usersMotherTongue = action.payload.usersMotherTongue
-    //},
     setLocale: (state, action: PayloadAction<Locale>) => {
       state.locale = action.payload
     },
@@ -34,11 +33,17 @@ const onboardingSlice = createSlice({
       state.locales = action.payload.locales
       state.initialized = true
     },
+    setLanguages: (state, action: PayloadAction<Locale[]>) => {
+      state.languages = action.payload
+    },
+    setStep: (state, action: PayloadAction<number>) => {
+      state.step = action.payload
+    },
   },
 })
 
 export const onboardingReducer = onboardingSlice.reducer
-export const { setLocale, initOnboarding } = onboardingSlice.actions
+export const { setLocale, initOnboarding, setLanguages, setStep } = onboardingSlice.actions
 
 export const useOnboarding = () => {
   const onboarding = useAppSelector((state) => state.onboardingReducer)
@@ -48,6 +53,12 @@ export const useOnboarding = () => {
     onboarding,
     setLocale: (locale: Locale) => {
       dispatch(setLocale(locale))
+    },
+    setLanguages: (languages: Locale[]) => {
+      dispatch(setLanguages(languages))
+    },
+    setStep: (step: number) => {
+      dispatch(setStep(step))
     },
   }
 }

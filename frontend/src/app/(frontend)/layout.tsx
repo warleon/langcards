@@ -19,8 +19,10 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>
-        <StoreProvider onboarding={{ locale, locales, detectedLocale: locale }}>
-          <main className="min-w-xs container mx-auto">{children}</main>
+        <StoreProvider
+          onboarding={{ locale, locales, detectedLocale: locale, step: 0, languages: [] }}
+        >
+          <main className="min-w-xs container mx-auto min-h-screen">{children}</main>
         </StoreProvider>
       </body>
     </html>
