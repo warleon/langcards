@@ -25,12 +25,10 @@ const rootReducer = combineReducers({
   // Add other reducers here
   onboardingReducer,
 })
-export type RootState = ReturnType<typeof rootReducer> & PersistPartial
 
-export const makeStore = (preloadedState: RootState) => {
+export const makeStore = () => {
   const store = configureStore({
     reducer: persistReducer(persistConfig, rootReducer),
-    preloadedState,
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({
         serializableCheck: {
@@ -43,5 +41,6 @@ export const makeStore = (preloadedState: RootState) => {
 }
 
 export type AppStore = ReturnType<typeof makeStore>['store']
+export type RootState = ReturnType<typeof rootReducer>
 
 export type AppDispatch = AppStore['dispatch']

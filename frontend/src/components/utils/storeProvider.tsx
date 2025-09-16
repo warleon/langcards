@@ -2,7 +2,8 @@
 import { Provider } from 'react-redux'
 import { makeStore } from '@/lib/redux/store'
 import { PersistGate } from 'redux-persist/integration/react'
-import { OnboardingState } from '@/lib/redux/features/onboarding'
+import { initOnboarding, OnboardingState } from '@/lib/redux/features/onboarding'
+import { useRef } from 'react'
 
 interface Props {
   children: React.ReactNode
@@ -10,10 +11,12 @@ interface Props {
 }
 
 export default function StoreProvider({ children, onboarding }: Props) {
-  const { store, persistor } = makeStore({
-    onboardingReducer: { ...onboarding },
-    _persist: { rehydrated: true, version: 0 },
-  })
+  const storeRef = useRef<ReturnType<typeof makeStore> | null>(null)
+  if (!storeRef.current) {
+    storeRef.current = makeStore()
+    storeRef.current.store.dispatch(initOnboarding(onboarding))
+  }
+  const { store, persistor } = storeRef.current
 
   return (
     <Provider store={store}>

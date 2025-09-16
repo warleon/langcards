@@ -3,13 +3,13 @@ import { Locale } from 'payload'
 import { useAppSelector, useAppDispatch } from '../../hooks'
 
 export interface OnboardingState {
-  //initialized: boolean
+  initialized?: boolean
   locale: Locale
   detectedLocale: Locale
   locales: Locale[]
 }
 const initialState: OnboardingState = {
-  //initialized: false,
+  initialized: false,
   locale: { code: 'en', label: 'English' },
   detectedLocale: { code: 'en', label: 'English' },
   locales: [],
@@ -27,11 +27,18 @@ const onboardingSlice = createSlice({
     setLocale: (state, action: PayloadAction<Locale>) => {
       state.locale = action.payload
     },
+    initOnboarding: (state, action: PayloadAction<OnboardingState>) => {
+      if (state.initialized) return
+      state.detectedLocale = action.payload.detectedLocale
+      state.locale = action.payload.locale
+      state.locales = action.payload.locales
+      state.initialized = true
+    },
   },
 })
 
 export const onboardingReducer = onboardingSlice.reducer
-export const { setLocale } = onboardingSlice.actions
+export const { setLocale, initOnboarding } = onboardingSlice.actions
 
 export const useOnboarding = () => {
   const onboarding = useAppSelector((state) => state.onboardingReducer)
