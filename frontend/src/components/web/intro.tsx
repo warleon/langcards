@@ -12,6 +12,7 @@ type Props = {
   onChoose: (values: string[]) => void
   content: IntroContent
   defaultLanguage: string
+  onButtonClick: () => void
 }
 
 export const Intro: React.FC<Props> = ({
@@ -21,11 +22,12 @@ export const Intro: React.FC<Props> = ({
   classname,
   onChoose,
   content,
+  onButtonClick,
 }) => {
   return (
     <motion.div
       className={cn(
-        'flex flex-col items-center gap-8 max-w-2xl mx-auto text-center space-y-6',
+        'flex flex-col items-center gap-8 max-w-2xl mx-auto text-center space-y-6 mb-2',
         classname,
       )}
       initial={{ opacity: 0, y: 20 }}
@@ -52,7 +54,15 @@ export const Intro: React.FC<Props> = ({
         canBeEmpty={false}
       />
 
-      <ActionButton disabled={!selected.length}>{content.buttonLabel}</ActionButton>
+      <ActionButton
+        disabled={!selected.length}
+        onClick={(e) => {
+          e.preventDefault()
+          onButtonClick()
+        }}
+      >
+        {content.buttonLabel}
+      </ActionButton>
     </motion.div>
   )
 }

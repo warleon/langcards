@@ -21,8 +21,8 @@ export function ActionButton({
       className={cn(
         'px-6 py-3 rounded-2xl font-medium shadow-md transition-all',
         'bg-primary text-primary-foreground hover:bg-primary/90',
-        'cursor-pointer -z-10!',
         'disabled:opacity-50 disabled:cursor-not-allowed ',
+        'hover:cursor-pointer',
         className,
       )}
       disabled={!enabled || isLoading}

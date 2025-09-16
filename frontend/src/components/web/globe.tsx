@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef, type CSSProperties, useCallback } f
 import { timer } from 'd3'
 import { ComposableMap, Geographies, Geography } from 'react-simple-maps'
 import { useDragX } from '@/hooks/useDragRotation'
+import { motion } from 'framer-motion'
 
 interface Props {
   onSelect: (code: string, rest: string[]) => void
@@ -115,7 +116,13 @@ export const Globe: React.FC<Props> = ({
   }, [autoRotate, rotationSpeed])
 
   return (
-    <div className={className}>
+    <motion.div
+      className={className}
+      layout
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+    >
       <ComposableMap
         //@ts-expect-error correct use of ref
         ref={globeRef}
@@ -174,6 +181,6 @@ export const Globe: React.FC<Props> = ({
           }
         </Geographies>
       </ComposableMap>
-    </div>
+    </motion.div>
   )
 }

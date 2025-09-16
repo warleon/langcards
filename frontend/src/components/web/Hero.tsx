@@ -6,6 +6,8 @@ import { CODES_BY_LANG } from '@/lib/consts'
 import { Intro as IntroContent } from '@/payload-types'
 import { LocalizedDoc } from '@/lib/utils'
 import { findContentByLocale } from '@/lib/utils'
+import { useMultistepForm } from '@/hooks/useMultStepForm'
+import next from 'next'
 
 interface Props {
   languages: string[]
@@ -31,18 +33,27 @@ export const Hero: React.FC<Props> = ({ languages, defaultLanguage, introContent
   const codes = useMemo(() => {
     return langs.flatMap((l) => CODES_BY_LANG.get(l) ?? [])
   }, [langs])
+  const { step, next } = useMultistepForm([
+    <Intro
+      key="intro"
+      defaultLanguage={defaultLanguage}
+      classname="px-4"
+      languages={languages}
+      selected={langs}
+      onChoose={setLangs}
+      content={findContentByLocale(introContent, langs[0], defaultLanguage)}
+      onButtonClick={() => {
+        console.log('button clicked')
+        next()
+      }}
+    ></Intro>,
+  ])
 
   return (
     <section className="py-8 flex flex-wrap">
-      <Intro
-        defaultLanguage={defaultLanguage}
-        classname="px-4"
-        languages={languages}
-        selected={langs}
-        onChoose={setLangs}
-        content={findContentByLocale(introContent, langs[0], defaultLanguage)}
-      ></Intro>
+      {step}
       <Globe
+        key="globe"
         className="grow w-1/4 my-2 mx-auto"
         rotationSpeed={1}
         onSelect={() => {}}
