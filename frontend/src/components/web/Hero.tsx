@@ -37,11 +37,7 @@ export const Hero: React.FC<Props> = ({ languages, introContent }) => {
   const { step, next } = useMultistepForm([
     <Intro
       key="intro"
-      defaultLanguage={onboarding.locale.label as string}
       classname="px-4"
-      languages={languages}
-      selected={langs}
-      onChoose={setLangs}
       content={findContentByLocale(
         introContent,
         onboarding.locale.label as string,

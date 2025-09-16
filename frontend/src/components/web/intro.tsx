@@ -4,26 +4,20 @@ import { Selector } from './selector'
 import { cn } from '@/lib/utils'
 import { ActionButton } from './actionButton'
 import { Intro as IntroContent } from '@/payload-types'
+import { useOnboarding } from '@/lib/redux/features/onboarding'
+import { useMemo } from 'react'
 
 type Props = {
-  languages: string[]
-  selected: string[]
   classname?: string
-  onChoose: (values: string[]) => void
   content: IntroContent
-  defaultLanguage: string
   onButtonClick: () => void
 }
 
-export const Intro: React.FC<Props> = ({
-  languages,
-  selected,
-  defaultLanguage,
-  classname,
-  onChoose,
-  content,
-  onButtonClick,
-}) => {
+export const Intro: React.FC<Props> = ({ classname, content, onButtonClick }) => {
+  const { onboarding, setLocale } = useOnboarding()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const languages = useMemo(() => onboarding.locales.map((l) => l.label as string), [])
+
   return (
     <motion.div
       className={cn(
@@ -40,22 +34,19 @@ export const Intro: React.FC<Props> = ({
       <Selector
         classname="max-w-md w-full"
         onSelect={(o, r) => {
-          onChoose([...r, o])
+          setLocale(onboarding.locales.find((l) => l.label === o) ?? onboarding.locale)
         }}
-        onUnselect={(_, a) => {
-          onChoose(a)
-        }}
+        //onUnselect={(_, a) => {}}
         heading={content.selectorHeading}
         notFound={content.selectorNotFound}
         options={languages}
         searchPlaceholder={content.selectorSearchPlaceholder}
         showPills={false}
-        defaultSelection={defaultLanguage}
+        defaultSelection={onboarding.locale.label as string}
         canBeEmpty={false}
       />
 
       <ActionButton
-        disabled={!selected.length}
         onClick={(e) => {
           e.preventDefault()
           onButtonClick()
