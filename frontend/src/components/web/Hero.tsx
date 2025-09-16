@@ -1,5 +1,5 @@
 'use client'
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Intro } from './intro'
 import { Globe } from './globe'
 import { CODES_BY_LANG } from '@/lib/consts'
@@ -7,11 +7,10 @@ import { Intro as IntroContent } from '@/payload-types'
 import { LocalizedDoc } from '@/lib/utils'
 import { findContentByLocale } from '@/lib/utils'
 import { useMultistepForm } from '@/hooks/useMultStepForm'
-import next from 'next'
+import { useOnboarding } from '@/lib/redux/features/onboarding'
 
 interface Props {
   languages: string[]
-  defaultLanguage: string
   introContent: LocalizedDoc<IntroContent>[]
 }
 const BASE: React.CSSProperties = {
@@ -28,20 +27,26 @@ const GLOW: React.CSSProperties = {
   filter: 'drop-shadow(0 4px 6px var(--primary))',
   outline: 'none',
 }
-export const Hero: React.FC<Props> = ({ languages, defaultLanguage, introContent }) => {
-  const [langs, setLangs] = useState<string[]>([defaultLanguage])
+export const Hero: React.FC<Props> = ({ languages, introContent }) => {
+  const { onboarding, setLocale } = useOnboarding()
+
+  const [langs, setLangs] = useState<string[]>([onboarding.detectedLocale.label as string])
   const codes = useMemo(() => {
     return langs.flatMap((l) => CODES_BY_LANG.get(l) ?? [])
   }, [langs])
   const { step, next } = useMultistepForm([
     <Intro
       key="intro"
-      defaultLanguage={defaultLanguage}
+      defaultLanguage={onboarding.locale.label as string}
       classname="px-4"
       languages={languages}
       selected={langs}
       onChoose={setLangs}
-      content={findContentByLocale(introContent, langs[0], defaultLanguage)}
+      content={findContentByLocale(
+        introContent,
+        onboarding.locale.label as string,
+        onboarding.detectedLocale.label as string,
+      )}
       onButtonClick={() => {
         console.log('button clicked')
         next()
