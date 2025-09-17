@@ -9,7 +9,7 @@ interface SimpleCardProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export default function TitledCard({ title, children, className, ...props }: SimpleCardProps) {
   return (
-    <Card className={cn('w-full max-w-md', className)} {...props}>
+    <Card className={cn('w-3xs grow-0 shrink-0 min-w-3xs max-w-3xs', className)} {...props}>
       <CardTitle className="text-sm md:text-base mx-2">{title}</CardTitle>
       <CardContent className="m-2">{children}</CardContent>
     </Card>

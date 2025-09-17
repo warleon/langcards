@@ -31,7 +31,7 @@ export const LanguageSelectionStep: React.FC<Props> = ({ classname, content, nex
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
     >
-      <div className="flex gap-4">
+      <div className="flex gap-4 flex-wrap">
         {onboarding.locales.map((lang, i) => (
           <TwoSided
             key={i}
