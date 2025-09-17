@@ -424,7 +424,11 @@ export interface N8N {
  */
 export interface SupportedLanguage {
   id: number;
-  wording?: string | null;
+  native_wording?: string | null;
+  English?: string | null;
+  Spanish?: string | null;
+  Russian?: string | null;
+  Portuguese?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -458,7 +462,11 @@ export interface N8NSelect<T extends boolean = true> {
  * via the `definition` "supported_languages_select".
  */
 export interface SupportedLanguagesSelect<T extends boolean = true> {
-  wording?: T;
+  native_wording?: T;
+  English?: T;
+  Spanish?: T;
+  Russian?: T;
+  Portuguese?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
