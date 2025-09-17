@@ -7,6 +7,9 @@ import { Intro as IntroContent } from '@/payload-types'
 import { useOnboarding } from '@/lib/redux/features/onboarding'
 import { useMemo } from 'react'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
+import { TwoSided } from '@/components/utils/twoSided'
+import FrontCard from './frontCard'
+import BackCard from './backCard'
 
 type Props = {
   classname?: string
@@ -28,6 +31,16 @@ export const LanguageSelectionStep: React.FC<Props> = ({ classname, content, nex
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
     >
+      <div className="flex gap-4">
+        {onboarding.locales.map((lang, i) => (
+          <TwoSided
+            key={i}
+            front={<FrontCard title={lang.label as string}>{lang.code}</FrontCard>}
+            back={<BackCard title={lang.label as string}>{lang.code}</BackCard>}
+          />
+        ))}
+      </div>
+
       <div className="flex gap-8">
         <ActionButton
           onClick={(e) => {
