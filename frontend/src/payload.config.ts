@@ -7,8 +7,8 @@ import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 
-import { Users, Audios, Images, Words, Sentences, Intros } from './collections'
-import { n8n, supportedLanguages } from './globals'
+import { Users, Audios, Images, Words, Sentences } from './collections'
+import { n8n, supportedLanguages, Intros } from './globals'
 import { reflectionEndpoint } from './endpoints'
 
 const filename = fileURLToPath(import.meta.url)
@@ -21,8 +21,8 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Audios, Images, Words, Sentences, Intros],
-  globals: [n8n, supportedLanguages],
+  collections: [Users, Audios, Images, Words, Sentences],
+  globals: [n8n, supportedLanguages, Intros],
   endpoints: [reflectionEndpoint],
   localization: {
     locales: [

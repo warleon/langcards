@@ -72,7 +72,6 @@ export interface Config {
     images: Image;
     words: Word;
     sentences: Sentence;
-    intros: Intro;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -84,7 +83,6 @@ export interface Config {
     images: ImagesSelect<false> | ImagesSelect<true>;
     words: WordsSelect<false> | WordsSelect<true>;
     sentences: SentencesSelect<false> | SentencesSelect<true>;
-    intros: IntrosSelect<false> | IntrosSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -95,10 +93,12 @@ export interface Config {
   globals: {
     n8n: N8N;
     supported_languages: SupportedLanguage;
+    intros: Intro;
   };
   globalsSelect: {
     n8n: N8NSelect<false> | N8NSelect<true>;
     supported_languages: SupportedLanguagesSelect<false> | SupportedLanguagesSelect<true>;
+    intros: IntrosSelect<false> | IntrosSelect<true>;
   };
   locale: 'en' | 'es' | 'ru' | 'pt';
   user: User & {
@@ -222,21 +222,6 @@ export interface Sentence {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "intros".
- */
-export interface Intro {
-  id: number;
-  title: string;
-  subtitle: string;
-  selectorHeading: string;
-  selectorNotFound: string;
-  selectorSearchPlaceholder: string;
-  buttonLabel: string;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -261,10 +246,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'sentences';
         value: number | Sentence;
-      } | null)
-    | ({
-        relationTo: 'intros';
-        value: number | Intro;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -397,20 +378,6 @@ export interface SentencesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "intros_select".
- */
-export interface IntrosSelect<T extends boolean = true> {
-  title?: T;
-  subtitle?: T;
-  selectorHeading?: T;
-  selectorNotFound?: T;
-  selectorSearchPlaceholder?: T;
-  buttonLabel?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents_select".
  */
 export interface PayloadLockedDocumentsSelect<T extends boolean = true> {
@@ -457,10 +424,22 @@ export interface N8N {
  */
 export interface SupportedLanguage {
   id: number;
-  languages: {
-    language: string;
-    id?: string | null;
-  }[];
+  wording?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "intros".
+ */
+export interface Intro {
+  id: number;
+  title: string;
+  subtitle: string;
+  selectorHeading: string;
+  selectorNotFound: string;
+  selectorSearchPlaceholder: string;
+  buttonLabel: string;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -479,12 +458,22 @@ export interface N8NSelect<T extends boolean = true> {
  * via the `definition` "supported_languages_select".
  */
 export interface SupportedLanguagesSelect<T extends boolean = true> {
-  languages?:
-    | T
-    | {
-        language?: T;
-        id?: T;
-      };
+  wording?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "intros_select".
+ */
+export interface IntrosSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  selectorHeading?: T;
+  selectorNotFound?: T;
+  selectorSearchPlaceholder?: T;
+  buttonLabel?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

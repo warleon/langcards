@@ -1,14 +1,13 @@
 import { Intro } from '@/payload-types'
 import { revalidatePath } from 'next/cache'
-import { CollectionConfig } from 'payload'
+import { GlobalConfig } from 'payload'
 
-export const Intros: CollectionConfig = {
+export const Intros: GlobalConfig = {
   slug: 'intros',
-  labels: {
+  label: {
     singular: 'Intro Section',
     plural: 'Intro Sections',
   },
-  admin: { useAsTitle: 'title' },
   fields: [
     {
       name: 'title',
@@ -53,13 +52,6 @@ export const Intros: CollectionConfig = {
         const doc = hook.doc as Intro
         revalidatePath('/', 'page')
         //TODO generate the other locales with n8n
-        return doc
-      },
-    ],
-    afterDelete: [
-      async (hook) => {
-        const doc = hook.doc as Intro
-        revalidatePath('/', 'page')
         return doc
       },
     ],
