@@ -11,7 +11,6 @@ import {
 } from 'redux-persist'
 import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
 import { onboardingReducer } from './features/onboarding'
-import { PersistPartial } from 'redux-persist/es/persistReducer'
 
 const persistConfig = {
   key: 'langcards-state', // Key for your persisted state in storage
