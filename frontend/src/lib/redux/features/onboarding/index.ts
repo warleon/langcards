@@ -2,12 +2,15 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Locale } from 'payload'
 import { useAppSelector, useAppDispatch } from '../../hooks'
 
+type LangLevel = 'beginner' | 'intermediate' | 'advanced' | 'native'
+type LocaleWithLevel = Locale & { level: LangLevel }
+
 export interface OnboardingState {
   initialized?: boolean
   locale: Locale
   detectedLocale: Locale
   locales: Locale[]
-  languages: Locale[]
+  languages: LocaleWithLevel[]
   step: number
 }
 const initialState: OnboardingState = {
@@ -33,7 +36,7 @@ const onboardingSlice = createSlice({
       state.locales = action.payload.locales
       state.initialized = true
     },
-    setLanguages: (state, action: PayloadAction<Locale[]>) => {
+    setLanguages: (state, action: PayloadAction<LocaleWithLevel[]>) => {
       state.languages = action.payload
     },
     setStep: (state, action: PayloadAction<number>) => {
@@ -54,7 +57,7 @@ export const useOnboarding = () => {
     setLocale: (locale: Locale) => {
       dispatch(setLocale(locale))
     },
-    setLanguages: (languages: Locale[]) => {
+    setLanguages: (languages: LocaleWithLevel[]) => {
       dispatch(setLanguages(languages))
     },
     setStep: (step: number) => {
