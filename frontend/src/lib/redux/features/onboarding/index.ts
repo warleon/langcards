@@ -2,8 +2,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Locale } from 'payload'
 import { useAppSelector, useAppDispatch } from '../../hooks'
 
-type LangLevel = 'beginner' | 'intermediate' | 'advanced' | 'native'
-type LocaleWithLevel = Locale & { level: LangLevel }
+export type LangLevel = 'beginner' | 'intermediate' | 'advanced' | 'native'
+export type LocaleWithLevel = Locale & { level: LangLevel }
 
 export interface OnboardingState {
   initialized?: boolean
