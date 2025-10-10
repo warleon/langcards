@@ -35,8 +35,16 @@ export const LanguageSelectionStep: React.FC<Props> = ({ classname, content, nex
           .map((lang, i) => (
             <TwoSided
               key={i}
-              front={<FrontCard title={lang.label as string}>{lang.code}</FrontCard>}
-              back={<BackCard title={lang.label as string}>{lang.code}</BackCard>}
+              front={
+                <FrontCard className="hover:shadow-inner" title={lang.label as string}>
+                  {lang.code}
+                </FrontCard>
+              }
+              back={
+                <BackCard className="hover:shadow-inner" title={lang.label as string}>
+                  {lang.code}
+                </BackCard>
+              }
             />
           ))}
       </div>
