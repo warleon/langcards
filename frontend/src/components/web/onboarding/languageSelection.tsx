@@ -32,13 +32,15 @@ export const LanguageSelectionStep: React.FC<Props> = ({ classname, content, nex
       transition={{ duration: 0.6 }}
     >
       <div className="flex gap-4 flex-wrap">
-        {onboarding.locales.map((lang, i) => (
-          <TwoSided
-            key={i}
-            front={<FrontCard title={lang.label as string}>{lang.code}</FrontCard>}
-            back={<BackCard title={lang.label as string}>{lang.code}</BackCard>}
-          />
-        ))}
+        {onboarding.locales
+          .filter((lang) => lang !== onboarding.locale)
+          .map((lang, i) => (
+            <TwoSided
+              key={i}
+              front={<FrontCard title={lang.label as string}>{lang.code}</FrontCard>}
+              back={<BackCard title={lang.label as string}>{lang.code}</BackCard>}
+            />
+          ))}
       </div>
 
       <div className="flex gap-8">
