@@ -8,6 +8,7 @@ import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { TwoSided } from '@/components/utils/twoSided'
 import FrontCard from './frontCard'
 import BackCard from './backCard'
+import { on } from 'events'
 
 type Props = {
   classname?: string
@@ -32,21 +33,24 @@ export const LanguageSelectionStep: React.FC<Props> = ({ classname, content, nex
       <div className="flex gap-4 flex-wrap">
         {onboarding.locales
           .filter((lang) => lang !== onboarding.locale)
-          .map((lang, i) => (
-            <TwoSided
-              key={i}
-              front={
-                <FrontCard className="hover:shadow-inner" title={lang.label as string}>
-                  {lang.code}
-                </FrontCard>
-              }
-              back={
-                <BackCard className="hover:shadow-inner" title={lang.label as string}>
-                  {lang.code}
-                </BackCard>
-              }
-            />
-          ))}
+          .map((lang, i) => {
+            const selected = onboarding.languages.find((l) => l.code === lang.code)?.level
+            return (
+              <TwoSided
+                key={i}
+                front={
+                  <FrontCard
+                    className="hover:shadow-inner"
+                    title={lang.label as string}
+                    selected={selected}
+                  ></FrontCard>
+                }
+                back={
+                  <BackCard className="hover:shadow-inner" title={lang.label as string}></BackCard>
+                }
+              />
+            )
+          })}
       </div>
 
       <div className="flex gap-8">

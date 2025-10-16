@@ -16,14 +16,14 @@ export default function BackCard({ title, ...props }: SimpleCardProps) {
     [onboarding.languages, title],
   )
   return (
-    <TitledCard title={title} {...props}>
+    <TitledCard title={title} {...props} className={selected && ' border-primary/30'}>
       <div className="grid grid-cols-2 grid-rows-2 gap-2">
         {LEVELS.map((level) => (
           <Card
             key={level}
             className={cn(
               'hover:cursor-pointer hover:shadow-inner',
-              selected === level ? 'border-2 border-primary' : '',
+              selected === level ? ' border-primary/80' : '',
             )}
             role="button"
             onClick={() => {
