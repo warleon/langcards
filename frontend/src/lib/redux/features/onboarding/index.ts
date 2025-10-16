@@ -39,6 +39,17 @@ const onboardingSlice = createSlice({
     setLanguages: (state, action: PayloadAction<LocaleWithLevel[]>) => {
       state.languages = action.payload
     },
+    upsertLanguage: (state, action: PayloadAction<LocaleWithLevel>) => {
+      const existingIndex = state.languages.findIndex((l) => l.code === action.payload.code)
+      if (existingIndex !== -1) {
+        state.languages = state.languages.map((l, i) => (i === existingIndex ? action.payload : l))
+      } else {
+        state.languages = [...state.languages, action.payload]
+      }
+    },
+    removeLanguage: (state, action: PayloadAction<string>) => {
+      state.languages = state.languages.filter((l) => l.label !== action.payload)
+    },
     setStep: (state, action: PayloadAction<number>) => {
       state.step = action.payload
     },
@@ -46,7 +57,8 @@ const onboardingSlice = createSlice({
 })
 
 export const onboardingReducer = onboardingSlice.reducer
-export const { setLocale, initOnboarding, setLanguages, setStep } = onboardingSlice.actions
+export const { setLocale, initOnboarding, upsertLanguage, removeLanguage, setLanguages, setStep } =
+  onboardingSlice.actions
 
 export const useOnboarding = () => {
   const onboarding = useAppSelector((state) => state.onboardingReducer)
@@ -57,11 +69,14 @@ export const useOnboarding = () => {
     setLocale: (locale: Locale) => {
       dispatch(setLocale(locale))
     },
-    setLanguages: (languages: LocaleWithLevel[]) => {
-      dispatch(setLanguages(languages))
-    },
     setStep: (step: number) => {
       dispatch(setStep(step))
+    },
+    upsertLanguage: (language: LocaleWithLevel) => {
+      dispatch(upsertLanguage(language))
+    },
+    removeLanguage: (label: string) => {
+      dispatch(removeLanguage(label))
     },
   }
 }

@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import TitledCard from '@/components/ui/titledCard'
 import { Card } from '@/components/ui/card'
-import { LangLevel } from '@/lib/redux/features/onboarding'
+import { LangLevel, useOnboarding } from '@/lib/redux/features/onboarding'
+import { cn } from '@/lib/utils'
 
 interface SimpleCardProps extends React.HTMLAttributes<HTMLDivElement> {
   title: string
@@ -9,15 +10,30 @@ interface SimpleCardProps extends React.HTMLAttributes<HTMLDivElement> {
 const LEVELS: LangLevel[] = ['beginner', 'intermediate', 'advanced', 'native']
 
 export default function BackCard({ title, ...props }: SimpleCardProps) {
+  const { onboarding, upsertLanguage, removeLanguage } = useOnboarding()
+  const selected = useMemo(
+    () => onboarding.languages.find((lang) => lang.label === title)?.level,
+    [onboarding.languages, title],
+  )
+  console.log({ selected })
   return (
     <TitledCard title={title} {...props}>
       <div className="grid grid-cols-2 grid-rows-2 gap-2">
         {LEVELS.map((level) => (
           <Card
             key={level}
-            className="hover:cursor-pointer hover:shadow-inner"
+            className={cn(
+              'hover:cursor-pointer hover:shadow-inner',
+              selected === level ? 'border-2 border-primary' : '',
+            )}
             role="button"
-            onClick={() => {}}
+            onClick={() => {
+              if (selected === level) {
+                removeLanguage(title)
+              } else {
+                upsertLanguage({ ...onboarding.locales.find((l) => l.label === title)!, level })
+              }
+            }}
           >
             {level}
           </Card>

@@ -17,7 +17,7 @@ type Props = {
 }
 
 export const LanguageSelectionStep: React.FC<Props> = ({ classname, content, next, back }) => {
-  const { onboarding, setLocale, setLanguages } = useOnboarding()
+  const { onboarding } = useOnboarding()
 
   return (
     <motion.div
