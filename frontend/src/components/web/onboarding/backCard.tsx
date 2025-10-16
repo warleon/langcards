@@ -15,7 +15,6 @@ export default function BackCard({ title, ...props }: SimpleCardProps) {
     () => onboarding.languages.find((lang) => lang.label === title)?.level,
     [onboarding.languages, title],
   )
-  console.log({ selected })
   return (
     <TitledCard title={title} {...props}>
       <div className="grid grid-cols-2 grid-rows-2 gap-2">
