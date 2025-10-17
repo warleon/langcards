@@ -8,7 +8,6 @@ import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { TwoSided } from '@/components/utils/twoSided'
 import FrontCard from './frontCard'
 import BackCard from './backCard'
-import { on } from 'events'
 
 type Props = {
   classname?: string
@@ -32,7 +31,7 @@ export const LanguageSelectionStep: React.FC<Props> = ({ classname, content, nex
     >
       <div className="flex gap-4 flex-wrap">
         {onboarding.locales
-          .filter((lang) => lang !== onboarding.locale)
+          .filter((l) => l.code !== onboarding.locale.code)
           .map((lang, i) => {
             const selected = onboarding.languages.find((l) => l.code === lang.code)?.level
             return (

@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 interface KV {
   key: string
@@ -32,7 +32,7 @@ export const useSelection = ({
     return map
   }, [options])
   const [selectedPlural, setSelectedPlural] = useState<KV[]>(
-    options.filter((o) => o.key === defaultSelection),
+    [], //options.filter((o) => o.key === defaultSelection),
   )
   const isSelected = useCallback(
     (key: string) => {
@@ -82,6 +82,10 @@ export const useSelection = ({
     },
     [canBeEmpty, multiSelect, onUnselect, optionsMap, selectedPlural],
   )
+  useEffect(() => {
+    if (defaultSelection === undefined) return
+    if (optionsMap.has(defaultSelection)) select(defaultSelection)
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
   return {
     select,
     unselect,

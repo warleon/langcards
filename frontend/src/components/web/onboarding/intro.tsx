@@ -15,7 +15,7 @@ type Props = {
 }
 
 export const IntroStep: React.FC<Props> = ({ classname, content, next }) => {
-  const { onboarding, setLocale } = useOnboarding()
+  const { onboarding, setLocale, upsertLanguage, removeLanguage } = useOnboarding()
   const languages = useMemo(
     () => onboarding.locales.map((l) => l.label as string),
     [onboarding.locales],
@@ -37,8 +37,10 @@ export const IntroStep: React.FC<Props> = ({ classname, content, next }) => {
       <Selector
         classname="max-w-md w-full"
         onSelect={(o, _) => {
+          removeLanguage(onboarding.locale.label as string)
           const locale = onboarding.locales.find((l) => l.label === o) ?? onboarding.locale
           setLocale(locale)
+          upsertLanguage({ ...locale, level: 'native' })
         }}
         heading={content.selectorHeading}
         notFound={content.selectorNotFound}

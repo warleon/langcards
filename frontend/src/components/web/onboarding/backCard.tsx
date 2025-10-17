@@ -19,15 +19,18 @@ export default function BackCard({ title, ...props }: SimpleCardProps) {
     <TitledCard
       title={title}
       {...props}
-      className={selected ? ' border-primary/80' : 'border-foreground/80'}
+      className={cn(
+        'text-muted-foreground',
+        selected ? ' border-primary/80 text-primary/80' : 'border-foreground/80',
+      )}
     >
       <div className="grid grid-cols-2 grid-rows-2 gap-2">
         {LEVELS.map((level) => (
           <Card
             key={level}
             className={cn(
-              'hover:cursor-pointer hover:shadow-inner',
-              selected === level ? ' border-primary/50' : 'border-foreground/30',
+              'hover:cursor-pointer hover:shadow-inner text-muted-foreground',
+              selected === level ? ' border-primary/50 text-primary/50' : 'border-foreground/30',
             )}
             role="button"
             onClick={() => {

@@ -1,6 +1,4 @@
-import React, { useMemo } from 'react'
 import TitledCard from '@/components/ui/titledCard'
-import { useOnboarding } from '@/lib/redux/features/onboarding'
 import { Card } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
 
@@ -14,12 +12,15 @@ export default function FrontCard({ title, selected, ...props }: SimpleCardProps
     <TitledCard
       title={title}
       {...props}
-      className={selected ? ' border-primary/80' : 'border-foreground/80'}
+      className={cn(
+        ' text-muted-foreground',
+        selected ? ' border-primary/80 text-primary/80' : 'border-foreground/80',
+      )}
     >
       <Card
         className={cn(
-          'hover:cursor-pointer hover:shadow-inner',
-          selected ? ' border-primary/50' : 'border-foreground/30',
+          'hover:cursor-pointer hover:shadow-inner text-muted-foreground',
+          selected ? ' border-primary/50  text-primary/50' : 'border-foreground/30',
         )}
       >
         {selected ?? '?'}
