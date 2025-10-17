@@ -11,9 +11,16 @@ interface SimpleCardProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export default function FrontCard({ title, selected, ...props }: SimpleCardProps) {
   return (
-    <TitledCard title={title} {...props} className={selected && ' border-primary/30'}>
+    <TitledCard
+      title={title}
+      {...props}
+      className={selected ? ' border-primary/80' : 'border-foreground/80'}
+    >
       <Card
-        className={cn('hover:cursor-pointer hover:shadow-inner', selected && ' border-primary/80')}
+        className={cn(
+          'hover:cursor-pointer hover:shadow-inner',
+          selected ? ' border-primary/50' : 'border-foreground/30',
+        )}
       >
         {selected ?? '?'}
       </Card>
